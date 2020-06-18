@@ -1,0 +1,30 @@
+<% surveys.forEach(item => { %>
+    <div id="edit-<%= item._id  %>" class="modal">
+        <div class="modal-content">
+            <h4 class="grey-text center">Edit <span class="green-text"><%= item.title  %></span></h4>
+            <form  action="/users/survey/<%= item._id  %>?_method=PUT" method="post" style="width: 80%; margin: auto;">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">assignment</i>
+                            <input maxlength="20" placeholder="placeholder" value="<%= item.title %>" required name="title" id="icon_prefix" type="text" class="validate">
+                            <label for="icon_prefix">Survey Title</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 center">
+                        <button class="btn waves-effect waves-light" type="submit">Update Survey
+                            <i class="material-icons right">brush</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close btn-small grey waves-effect waves-light">Close
+                <i class="material-icons right">close</i>
+            </a>
+        </div>
+      </div>
+<% }) %>

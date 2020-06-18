@@ -5,6 +5,8 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const config = require('config');
 const connectDB = require('./config/db');
+const passportConfig = require('./config/passport');
+const methodOverride = require('method-override');
 
 // Database Connect
 connectDB();
@@ -13,6 +15,8 @@ connectDB();
 app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+app.use(methodOverride('_method'));
+
 
 // Session Setup
 app.use(session({
@@ -29,8 +33,15 @@ app.use((req, res, next)=> {
     next();
 });
 
+// Passport Setup 
+passportConfig(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Routes
 app.use('/survey', require('./routes/survey'));
+app.use('/auth', require('./routes/auth'));
+app.use('/users', require('./routes/user'));
 
 
 // PORT listen

@@ -1,0 +1,42 @@
+<%- include ('../partials/_header')  %> 
+<div class="auth-container container z-depth-1" style="margin: 2em auto 1em auto; padding: 1em;">
+    <form action="/auth/login" method="post">
+        <p class="flow-text indigo-text lighten-1 center">User Login</p>
+        <div class="row">
+            <div class="col s12">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
+                    <input required name="email" id="icon_prefix" type="email" class="validate">
+                    <label for="icon_prefix">Email Address</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">security</i>
+                    <input minlength="4" required name="password" id="icon_prefix" type="password" class="validate">
+                    <label for="icon_prefix">Password</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center">
+                <button class="btn waves-effect waves-light" type="submit">Login
+                    <i class="material-icons right">lock_open</i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <p class="grey-text center">OR</p>
+    <div class="row">
+        <div class="col s12 center">
+            <a href="/auth/google" class="flex g-sign"><img src="/images/google.png" alt="" class="G-logo"><span>Sign in With Google</span> </a>
+        </div>
+    </div>
+    <div class="row">
+        <p class="grey-text col s12">Don't have an Account ? <a href="/auth/register">Register Here</a></p>
+    </div>
+</div>
+<%- include ('../partials/_script')  %> 
+<%- include ('../partials/_footer')  %> 

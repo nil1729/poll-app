@@ -1,0 +1,3 @@
+<script>
+    M.AutoInit();
+</script>

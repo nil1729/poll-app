@@ -1,0 +1,40 @@
+<%- include ('../partials/_header') %>
+    <div class="container">
+        <h2>Welcome <%= user.firstName %> </h2>
+        <h5 style="letter-spacing: 0.5px;">Your Surveys</h5>
+        <hr>
+        <table class="highlight responsive-table">
+            <thead>
+              <tr>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th>Responses</th>
+                  <th>Questions</th>
+                  <th></th>
+              </tr>
+            </thead>
+    
+            <tbody>
+                <% surveys.forEach(item => { %>
+                    <tr class="capital-text">
+                        <td><a href="/survey/preview/<%= item._id  %>"><%= item.title  %></a></td>
+                        <td><%= item.showDate  %></td>
+                        <td><%= item.responses  %></td>
+                        <td><%= item.surveyQs.length  %></td>
+                        <td>
+                            <a class="waves-effect waves-light btn light-green darken-1" href="/survey/create/<%= item._id  %>">Add Question</a>
+                            <a class="waves-effect waves-light btn teal darken-1 modal-trigger" href="#edit-<%= item._id %>"><i class="material-icons left">mode_edit</i>Edit</a>
+                            <form class="d-inline" action="/users/survey/<%= item._id %>?_method=DELETE" method="post">
+                                <button class="btn waves-effect waves-light red" type="submit">
+                                    <i class="material-icons left">delete</i>Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <% })  %> 
+            </tbody>
+          </table>
+    </div>
+<%- include ('../partials/_edit-survey.ejs')  %>  
+<%- include ('../partials/_script') %> 
+<%- include ('../partials/_footer') %> 

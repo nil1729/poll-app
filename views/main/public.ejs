@@ -1,0 +1,36 @@
+<%- include ('../partials/_header')  %>
+<div class="container">
+    <h3><%= typeof view !== 'undefined' && view === 'public'?'Public': typeof user!=='undefined' && owner._id.equals(user._id) ? 'My': `${owner.firstName}'s`%>  Surveys</h3>
+    <div class="row story-container mt-2">
+        <% surveys.forEach(item => { %>
+            <% if( (item.surveyQs.length !== 0 ) || ( typeof view === 'undefined' && typeof user!=='undefined' && owner._id.equals(user._id))) { %> 
+            <div class="col s12 m4 mb-2">
+                <div class="card center card-public">
+                  <% if( typeof user !== 'undefined' && item.user._id.equals(user._id)){ %> 
+                    <div class="card-image">
+                        <a href="#edit-<%= item._id %>" class="modal-trigger btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
+                  </div>
+                <% } %> 
+                  <div class="card-content capital-text">
+                    <p class="flow-text indigo-text"> <%= item.title  %> </p>
+                    <p class=p-l-text">  <span class="red-text text-lighten-2">Questions:</span>  <span><%= item.surveyQs.length %></span> </p>
+                    <p class=p-l-text">  <span class="lime-text text-darken-2">Responses:</span>  <span><%= item.responses %></span> </p>
+                    <p class="p-text grey-text">  <%= item.showDate %> </p>
+                    <div class="grey lighten-2 profile-badge card-avatar">
+                        <div class="avatar-stamp"> <img src="<%= item.user.avatar  %>" alt="" class="circle responsive-img"> </div>
+                        <a class="avatar-name" href="/users/survey/<%= item.user._id  %>"> <%= item.user.firstName  %> <%= item.user.lastName %></a>
+                    </div>
+                  </div>
+                  <div class="card-action" id="card-action-pos">
+                    <a class="waves-effect waves-light btn light-blue" href="/survey/preview/<%= item._id  %>">Preview</a>
+                    <a class="waves-effect waves-light btn green" href="/survey/response/<%= item._id  %>">Respond</a>
+                  </div>
+                </div>
+              </div>
+            <% } %> 
+            <% })  %> 
+    </div>
+</div>
+<%- include ('../partials/_edit-survey.ejs')  %> 
+<%- include ('../partials/_script')  %>
+<%- include ('../partials/_footer')  %>  

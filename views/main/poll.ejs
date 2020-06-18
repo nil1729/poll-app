@@ -1,8 +1,17 @@
 <%- include ('../partials/_header')  %> 
 <div class="container" style="margin-bottom: 4em;">
-    <h4 class="center">Survey Title</h4>
-    <form action="/survey/response" method="post">
-        <% survey.forEach(item => { %>
+    <h4 class="center capital-text">
+        <%- view!=='preview' ? `<span class="indigo-text">${survey.title}</span>`: `<span class="green-text">${survey.title}</span> <span style="font-size: 50%;" class="light-blue-text">Preview</span>`  %>
+        <% if(view==='preview' && typeof user !== 'undefined' && survey.user._id.equals(user._id)) {%> 
+            <a href="/survey/analyze/<%= survey._id  %>" class="btn waves-effect waves-light orange" style="float: right;">Analyze Responses
+                <i class="material-icons left" style="font-size: 2em;">insert_chart</i>
+            </a>
+        <% } %> 
+    </h4>
+    <% if(view !== 'preview'){ %>
+        <form action="/survey/response/<%= survey._id  %>" method="post">
+    <%  }  %>
+        <% survey.surveyQs.forEach(item => { %>
             <div class="row z-depth-1">
                 <div class="col s12">
                     <p class="flow-text col s12"><%= item.QText  %></p>
@@ -121,12 +130,14 @@
                 </div>
             </div>
         <% })  %>
-        <div class="row center">
-            <button class="btn waves-effect waves-light" type="submit">Submit
-                <i class="material-icons right">send</i>
-            </button>
-        </div>
-    </form>
+        <% if(view !== 'preview'){ %>
+            <div class="row center">
+                <button class="btn waves-effect waves-light" type="submit">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+        <%  }  %>
 </div>
 <!-- <script src="/js/star.js"></script> -->
 <script>

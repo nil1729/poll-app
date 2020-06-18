@@ -1,8 +1,14 @@
 <%- include ('../partials/_header')  %> 
 <div class="container" style="margin: 1em auto 3em auto; width: 90vw;">
-    <% surveys.forEach(item => { %>
+    <h4 class="center orange-text capital-text">
+        <%= survey.title  %> <span style="font-size: 60%;" class="grey-text">Chart and Analysis</span>
+        <button onclick="print()" class="btn waves-effect waves-light light-green" style="float: right;">Print Report
+            <i class="material-icons left" style="font-size: 2em;">insert_drive_file</i>
+        </button>
+    </h4>
+    <% survey.surveyQs.forEach(item => { %>
         <div class="row z-depth-1" style="padding-bottom: 1em;">
-            <p class="flow-text col s12 center"><%= item.QText  %></p>
+            <p class="flow-text col s12 center blue-text"><%= item.QText  %></p>
         <% if(item.QType !== 'comment') { %>
                 <div class="col s12 m6">
                     <canvas id="<%= item._id  %>-bar"></canvas>
@@ -18,11 +24,12 @@
         </div>
     <% })  %> 
 </div>
+<%- include ('../partials/_script') %> 
 <script src="/js/Chart.js"></script>
 <script src="/js/types.js"></script>
 <script>
     const fetchData = async () => {
-        const res = await fetch('/survey/survey-data');
+        const res = await fetch(`/survey/survey-data/<%= id %>`);
         let JSON = await res.json();
         JSON.forEach(d => {
             let data, options;
@@ -86,5 +93,8 @@
         });
     };
     fetchData();
+    const print = () => {
+        window.print();
+    };
 </script>
 <%- include ('../partials/_footer')  %> 

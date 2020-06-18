@@ -1,9 +1,9 @@
 <%- include ('../partials/_header')  %> 
 <div class="container" style="margin-bottom: 4em;">
-    <p class="flow-text">
-        Add Survey Question
+    <p class="flow-text d-flex-fit">
+        <span class="blue-text capital-text"><%= survey.title  %></span> <i class="material-icons grey-text">keyboard_arrow_right</i> Add Question
     </p>
-    <form action="/survey/create" method="POST">
+    <form action="/survey/create/<%= survey._id %>" method="POST">
         <div class="row">
             <div class="col s12 m8">
                 <div class="input-field col s12">
@@ -75,7 +75,6 @@
     </form>
 </div>
 <script src="/js/demo.js"></script>
-<!-- <script src="/js/star.js"></script> -->
 <script>
     M.AutoInit();
     const demo = document.querySelector('.demo');
