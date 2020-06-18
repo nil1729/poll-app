@@ -40,7 +40,7 @@ app.use(passport.session());
 
 // Routes
 app.get('/', (req, res) => {
-     res.redirect('/survey/public');
+    res.render('main/index');
 });
 app.use('/survey', require('./routes/survey'));
 app.use('/auth', require('./routes/auth'));

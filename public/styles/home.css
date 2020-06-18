@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap');
+.home{
+    user-select: none;
+}
+.home h1{
+    font-family: 'MuseoModerno', cursive;
+}
+@media only screen and (max-width: 600px){
+    .home h1{
+        font-size: 2.8em;
+    }
+}
