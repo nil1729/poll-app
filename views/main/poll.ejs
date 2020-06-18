@@ -137,11 +137,33 @@
                 </button>
             </div>
         </form>
-        <%  }  %>
+        <%  }else { %>
+            <div class="row">
+                <a class="btn waves-effect waves-light deep-orange modal-trigger" href="#share-modal">Share
+                    <i class="material-icons left">share</i>
+                </a>
+            </div>
+        <% } %>
 </div>
+<!-- SHARE MODAL -->
+<div id="share-modal" class="modal">
+    <div class="modal-content">
+        <div class="share-links wapp" style="margin-bottom: 10px;">
+        </div>
+        <div class="share-links fb">
+        </div>
+    </div>
+  </div>
+<!-- ------------ -->
 <!-- <script src="/js/star.js"></script> -->
 <script>
     window.onload = function() {
+        // SHARE LINKS
+        const WappLinks = document.querySelector('.share-links.wapp');
+        const fbLinks = document.querySelector('.share-links.fb');
+        fbLinks.innerHTML = `<a  href="https://www.facebook.com/sharer/sharer.php?u=${location.host}${location.pathname}" target="_blank" class="btn waves-effect waves-light indigo"><i class="fab fa-facebook"></i> share via facebook</a>`;
+        WappLinks.innerHTML = `<a  href="https://api.whatsapp.com/send?text=${location.href}" target="_blank" data-action="share/whatsapp/share" class="btn waves-effect waves-light light-green"><i class="fab fa-2x fa-whatsapp"></i> share via whatsapp</a>`
+        // Materialize CSS
         M.AutoInit();
         var elems  = document.querySelectorAll("input[type=range]");
         M.Range.init(elems);
