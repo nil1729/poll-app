@@ -1,6 +1,6 @@
 <%- include ('../partials/_header')  %> 
 <div class="container" style="margin: 1em auto 3em auto; width: 90vw;">
-    <h4 class="center orange-text capital-text">
+    <h4 class="center orange-text capital-text analyze-title">
         <%= survey.title  %> <span style="font-size: 60%;" class="grey-text">Chart and Analysis</span>
         <button onclick="print()" class="btn waves-effect waves-light light-green" style="float: right;">Print Report
             <i class="material-icons left" style="font-size: 2em;">insert_drive_file</i>
@@ -8,7 +8,7 @@
     </h4>
     <% survey.surveyQs.forEach(item => { %>
         <div class="row z-depth-1" style="padding-bottom: 1em;">
-            <p class="flow-text col s12 center blue-text"><%= item.QText  %></p>
+            <p class="flow-text col s12 center blue-text QText"><%= item.QText  %></p>
         <% if(item.QType !== 'comment') { %>
                 <div class="col s12 m6">
                     <canvas id="<%= item._id  %>-bar"></canvas>
@@ -29,68 +29,72 @@
 <script src="/js/types.js"></script>
 <script>
     const fetchData = async () => {
-        const res = await fetch(`/survey/survey-data/<%= id %>`);
-        let JSON = await res.json();
-        JSON.forEach(d => {
-            let data, options;
-            const responses = Object.values(d.responses);
-            let counts = new Object();
-            for (let i = 0; i < responses.length; i++) {
-                let option = responses[i];
-                counts[option] = counts[option] ? counts[option] + 1 : 1;
-            }
-            if(d.QType === 'singleSelect' || d.QType === 'multipleSelect'){
-                options = Object.values(d.options);
-                options.forEach(option => {
-                    if(typeof counts[option] === 'undefined'){
-                        counts[option] = 0;
-                    }
-                });;
-            }else{
-                if(d.QType === 'slider'){
-                    counts = {
-                        '0 <= x <= 25': 0,
-                        '25 < x <= 50': 0,
-                        '50 < x <= 75': 0,
-                        '75 < x <= 100': 0
-                    };
-                    for (let i = 0; i < responses.length; i++) {
-                        let option;
-                        if(responses[i] <= 25){
-                            option = '0 <= x <= 25';
-                        }
-                        if(responses[i] > 25 && responses[i] <= 50){
-                            option = '25 < x <= 50';
-                        }
-                        if(responses[i] > 50 && responses[i] <= 75){
-                            option = '50 < x <= 75';
-                        }
-                        if(responses[i] > 75){
-                            option = '75 < x <= 100';
-                        }
-                        counts[option] = counts[option] ? counts[option] + 1 : 1;
-                    }
-                }else{
-                    options = optionTypes[d.QType];
+        try {
+            const res = await fetch(`/survey/survey-data/<%= id %>`);
+            let JSON = await res.json();
+            JSON.surveyQs.forEach(d => {
+                let data, options;
+                const responses = Object.values(d.responses);
+                let counts = new Object();
+                for (let i = 0; i < responses.length; i++) {
+                    let option = responses[i];
+                    counts[option] = counts[option] ? counts[option] + 1 : 1;
                 }
-            }
-            if(d.QType !== 'comment'){
-                if(d.QType !== 'slider'){
+                if(d.QType === 'singleSelect' || d.QType === 'multipleSelect'){
+                    options = Object.values(d.options);
                     options.forEach(option => {
                         if(typeof counts[option] === 'undefined'){
                             counts[option] = 0;
                         }
                     });
+                }else{
+                    if(d.QType === 'slider'){
+                        counts = {
+                            '0 <= x <= 25': 0,
+                            '25 < x <= 50': 0,
+                            '50 < x <= 75': 0,
+                            '75 < x <= 100': 0
+                        };
+                        for (let i = 0; i < responses.length; i++) {
+                            let option;
+                            if(responses[i] <= 25){
+                                option = '0 <= x <= 25';
+                            }
+                            if(responses[i] > 25 && responses[i] <= 50){
+                                option = '25 < x <= 50';
+                            }
+                            if(responses[i] > 50 && responses[i] <= 75){
+                                option = '50 < x <= 75';
+                            }
+                            if(responses[i] > 75){
+                                option = '75 < x <= 100';
+                            }
+                            counts[option] = counts[option] ? counts[option] + 1 : 1;
+                        }
+                    }else{
+                        options = optionTypes[d.QType];
+                    }
                 }
-                data = {
-                    options: Object.keys(counts),
-                    counts: Object.values(counts),
-                    label: 'Data Visualization'
-                };
-                ChartData(d._id, data, 'bar');
-                ChartData(d._id, data, 'doughnut');
-            }
-        });
+                if(d.QType !== 'comment'){
+                    if(d.QType !== 'slider'){
+                        options.forEach(option => {
+                            if(typeof counts[option] === 'undefined'){
+                                counts[option] = 0;
+                            }
+                        });
+                    }
+                    data = {
+                        options: Object.keys(counts),
+                        counts: Object.values(counts),
+                        label: 'Data Visualization'
+                    };
+                    ChartData(d._id, data, 'bar');
+                    ChartData(d._id, data, 'doughnut');
+                }
+            });   
+        } catch (e) {
+            console.log(e);
+        }
     };
     fetchData();
     const print = () => {

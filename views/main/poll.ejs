@@ -1,6 +1,6 @@
 <%- include ('../partials/_header')  %> 
 <div class="container" style="margin-bottom: 4em;">
-    <h4 class="center capital-text">
+    <h4 class="center poll-title capital-text">
         <%- view!=='preview' ? `<span class="indigo-text">${survey.title}</span>`: `<span class="green-text">${survey.title}</span> <span style="font-size: 50%;" class="light-blue-text">Preview</span>`  %>
         <% if(view==='preview' && typeof user !== 'undefined' && survey.user._id.equals(user._id)) {%> 
             <a href="/survey/analyze/<%= survey._id  %>" class="btn waves-effect waves-light orange" style="float: right;">Analyze Responses

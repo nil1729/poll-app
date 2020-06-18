@@ -1,12 +1,12 @@
 <%- include ('../partials/_header')  %> 
 <div class="auth-container container z-depth-1" style="margin: 2em auto 1em auto; padding: 1em;">
     <form action="/auth/login" method="post">
-        <p class="flow-text indigo-text lighten-1 center">User Login</p>
+        <p class="flow-text indigo-text lighten-1 center">Login User</p>
         <div class="row">
             <div class="col s12">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
-                    <input required name="email" id="icon_prefix" type="email" class="validate">
+                    <input required name="email" type="email" class="validate">
                     <label for="icon_prefix">Email Address</label>
                 </div>
             </div>
@@ -15,7 +15,7 @@
             <div class="col s12">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">security</i>
-                    <input minlength="4" required name="password" id="icon_prefix" type="password" class="validate">
+                    <input minlength="4" required name="password" type="password" class="validate">
                     <label for="icon_prefix">Password</label>
                 </div>
             </div>

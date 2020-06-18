@@ -1,0 +1,6 @@
+{
+    "googleClientID": "74931542198-a3ht4og18eo2m5uebrci0qdgatip345i.apps.googleusercontent.com",
+    "googleClientSecret" : "RHxHnTDIunsU0EPaXuuzvy7x",
+    "sessionSecret": "e5f79c5915c02171eec6b212d5520d44480993d7d622a7c4c2da32f6efda0ffa",
+    "mongoURI": "mongodb+srv://nilanjan:nilanjan@poll-app-3k7sj.mongodb.net/test?retryWrites=true&w=majority"
+}

@@ -1,6 +1,6 @@
 <%- include ('../partials/_header') %>
     <div class="container">
-        <h2>Welcome <%= user.firstName %> </h2>
+        <h2 class="dashboard-name">Welcome <%= user.firstName %> </h2>
         <h5 style="letter-spacing: 0.5px;">Your Surveys</h5>
         <hr>
         <table class="highlight responsive-table">
@@ -21,10 +21,10 @@
                         <td><%= item.showDate  %></td>
                         <td><%= item.responses  %></td>
                         <td><%= item.surveyQs.length  %></td>
-                        <td>
-                            <a class="waves-effect waves-light btn light-green darken-1" href="/survey/create/<%= item._id  %>">Add Question</a>
-                            <a class="waves-effect waves-light btn teal darken-1 modal-trigger" href="#edit-<%= item._id %>"><i class="material-icons left">mode_edit</i>Edit</a>
-                            <form class="d-inline" action="/users/survey/<%= item._id %>?_method=DELETE" method="post">
+                        <td class="survey-action-btns">
+                            <a class="action-a waves-effect waves-light btn light-green darken-1" href="/survey/create/<%= item._id  %>">Add Question</a>
+                            <a class="action-a waves-effect waves-light btn teal darken-1 modal-trigger" href="#edit-<%= item._id %>"><i class="material-icons left">mode_edit</i>Edit</a>
+                            <form class="btn-form" action="/users/survey/<%= item._id %>?_method=DELETE" method="post">
                                 <button class="btn waves-effect waves-light red" type="submit">
                                     <i class="material-icons left">delete</i>Delete
                                 </button>

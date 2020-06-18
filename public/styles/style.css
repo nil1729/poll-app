@@ -175,15 +175,67 @@ main {
 .ml-0{
     margin-left: 0!important;
 }
+.survey-action-btns .btn-form{
+    display: inline;
+}
+.footer-links li {
+    margin-top: 5px;
+}
 @media only screen and (max-width: 600px){
     .flow-text{
         font-size: 1.5em;
         font-weight: 600;
     }
+    .header-title{
+        font-size: 1.5em!important;
+    }
+    .survey-action-btns{
+        display: flex!important;
+        flex-direction: column!important;
+        justify-content: space-evenly!important;
+        align-items: center!important;
+        height: 11rem!important;
+    }
+    .survey-action-btns .btn-form{
+        display: block!important;
+    }
+    .survey-action-btns .action-a{
+        display: block!important;
+    }
+    .dashboard-name{
+        font-size: 2.56rem;
+    }
+    .modal{
+        width: 90%;
+    }
+    .modal .modal-content{
+        padding: 10px 5px;
+    }
+    .view-name-public{
+        font-size: 2em;
+    }
+    .poll-title{
+        font-size: 1.8em;
+    }
+    .poll-title a{
+        float: none!important;
+    }
+    .analyze-title{
+        font-size: 1.5em;
+    }
+    .analyze-title button{
+        float: none!important;
+    }
+    .QText{
+        font-size: 1em;
+    }
 }
 @media only screen and (min-width: 900px){
     .auth-container{
         width: 40%;
+    }
+    .modal .modal-content form{
+        width: 80%;
     }
 }
 /* ----------- */

@@ -1,6 +1,6 @@
 <%- include ('../partials/_header')  %>
 <div class="container">
-    <h3><%= typeof view !== 'undefined' && view === 'public'?'Public': typeof user!=='undefined' && owner._id.equals(user._id) ? 'My': `${owner.firstName}'s`%>  Surveys</h3>
+    <h3 class="view-name-public"><%= typeof view !== 'undefined' && view === 'public'?'Public': typeof user!=='undefined' && owner._id.equals(user._id) ? 'My': `${owner.firstName}'s`%>  Surveys</h3>
     <div class="row story-container mt-2">
         <% surveys.forEach(item => { %>
             <% if( (item.surveyQs.length !== 0 ) || ( typeof view === 'undefined' && typeof user!=='undefined' && owner._id.equals(user._id))) { %> 

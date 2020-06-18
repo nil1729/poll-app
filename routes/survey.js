@@ -103,7 +103,7 @@ router.post('/response/:id', async(req, res) => {
 // frontend Client Side Rendering
 router.get('/survey-data/:id', checkAuthentication, async (req, res) => {
     try {
-        const surveys = await SurveyItem.find();
+        const surveys = await Survey.findById({_id: req.params.id}).populate('user').populate('surveyQs').exec();
         res.json(surveys);
     } catch (e) {
         console.log(e);

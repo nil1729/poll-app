@@ -39,6 +39,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
+app.get('/', (req, res) => {
+     res.redirect('/survey/public');
+});
 app.use('/survey', require('./routes/survey'));
 app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/user'));
