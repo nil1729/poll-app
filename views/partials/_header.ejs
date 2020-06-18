@@ -24,10 +24,10 @@
                         </a>
                     </li>
                 </ul>
-              <span class="brand-logo center header-title red-text" style="letter-spacing: 1px;">Survey Poll App</span>
+              <span class="brand-logo center header-title red-text" style="letter-spacing: 1px; font-family: 'MuseoModerno', cursive; text-shadow: 0 0 2px rgb(68, 67, 67);">Survey Poll App</span>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                   <% if(typeof user === 'undefined') {%> 
-                    <li><a href="/survey/public" class=""><i class="material-icons left">poll</i>Public Surveys</a></li>
+                    <li><a href="/survey/public" class="indigo-text text-darken-4"><i class="material-icons left">poll</i>Public Surveys</a></li>
                     <% }else{ %>
                     <li><span class="mr-10">Welcome <%= user.firstName %></span></li>
                     <li><a href="/auth/logout" class="indigo-text text-darken-4"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -45,9 +45,9 @@
                 </a>
             </li>
             <li>
-                <a href="/"><i class="material-icons left">home</i>Home</a></li>
+                <a href="/" class="indigo-text text-darken-4"><i class="material-icons left">home</i>Home</a></li>
             <li>
-                <a href="/survey/public" class=""><i class="material-icons left">poll</i>Public Surveys</a>
+                <a href="/survey/public" class="indigo-text text-darken-4"><i class="material-icons left">poll</i>Public Surveys</a>
             </li>
             <% }else{ %>
                     <li class="d-flex-start p-1-2">
@@ -56,9 +56,9 @@
                         </div> 
                         <p class="center flow-text ml-1"><%= user.firstName %> <%= user.lastName %></p>
                     </li>
-                    <li><a href="/users/dashboard" class=""><i class="fas fa-2x fa-user-cog"></i> Dashboard</a></li>
+                    <li><a href="/users/dashboard"><i class="fas fa-2x fa-user-cog"></i> Dashboard</a></li>
                     <li><a href="/users/survey/<%= user._id  %>"><i class="fas fa-2x fa-user-tag"></i> My Surveys</a></li>
-                    <li><a href="/survey/public" class=""><i class="material-icons left" style="font-size: 2.5em;">poll</i>Public Surveys</a></li>
+                    <li><a href="/survey/public"><i class="material-icons left" style="font-size: 2.5em;">poll</i>Public Surveys</a></li>
                     <li><a href="/auth/logout"><i class="fas fa-2x fa-sign-out-alt"></i>Logout</a></li>
             <% } %>
         </ul>

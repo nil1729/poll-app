@@ -5,6 +5,8 @@
 }
 .home h1{
     font-family: 'MuseoModerno', cursive;
+    color: rgb(240, 40, 40);
+    text-shadow: 0 0 2px rgb(68, 67, 67);
 }
 .home h3{
     font-family: 'Sriracha', cursive;
