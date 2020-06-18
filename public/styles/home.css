@@ -1,12 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
 .home{
     user-select: none;
 }
 .home h1{
     font-family: 'MuseoModerno', cursive;
 }
+.home h3{
+    font-family: 'Sriracha', cursive;
+    color: rgb(79, 107, 231);
+}
 @media only screen and (max-width: 600px){
     .home h1{
-        font-size: 2.8em;
+        font-size: 2.7em;
+    }
+    .home h3{
+        font-size: 1.5em;
+        text-align: center;
+    }
+}
+@media only screen and (min-width: 1020px){
+    .home .row{
+        display: flex;
+        align-items: center;
     }
 }

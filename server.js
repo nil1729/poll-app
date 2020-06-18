@@ -40,7 +40,7 @@ app.use(passport.session());
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('main/index');
+    res.render('main/index', {user: req.user});
 });
 app.use('/survey', require('./routes/survey'));
 app.use('/auth', require('./routes/auth'));
