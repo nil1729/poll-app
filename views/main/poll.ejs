@@ -1,0 +1,176 @@
+<%- include ('../partials/_header')  %> 
+<div class="container" style="margin-bottom: 4em;">
+    <h4 class="center">Survey Title</h4>
+    <form action="/survey/response" method="post">
+        <% survey.forEach(item => { %>
+            <div class="row z-depth-1">
+                <div class="col s12">
+                    <p class="flow-text col s12"><%= item.QText  %></p>
+                    <% if(item.QType === 'singleSelect') { %>
+                        <div class="input-field col s12">
+                            <% item.options.forEach( option => { %>
+                                <p> 
+                                    <label> 
+                                        <input 
+                                            class="with-gap" 
+                                            name="<%= item._id %>"
+                                            value="<%= option  %>" 
+                                            type="radio" /> 
+                                        <span><%= option  %></span> 
+                                    </label>
+                                </p>
+                            <% }) %>
+                        </div>
+                    <% } else if (item.QType === 'multipleSelect'){ %>
+                        <div class="input-field col s12">
+                            <% item.options.forEach( option => { %>
+                                <p>
+                                    <label>
+                                      <input
+                                        name="<%= item._id %>"
+                                        type="checkbox" 
+                                        class="filled-in" 
+                                        value="<%= option  %>" />
+                                    <span><%= option  %></span>
+                                    </label>
+                                </p>
+                            <% })  %> 
+                        </div>
+                    <% }else if(item.QType === 'starRating'){ %>
+                        <div class="input-field col s12" style="display: flex;">
+                            <% for(let i=1;i<=5;i++){ %>
+                                <p> <label> 
+                                    <input name="<%= item._id %>" value="<%= i  %>" type="radio" /> 
+                                    <span class="star-span">
+                                        <i id="<%= i %>-star" onclick="mark('<%= i %>')" onmouseout="nocolor('<%= i %>')" onmouseover="color('<%= i %>')" class="material-icons unmarked-<%= i  %>" style="cursor: pointer;">star</i>
+                                    </span> 
+                                </label> </p>
+                            <% } %> 
+                        </div>
+                    <% } else if(item.QType === 'smileyRating') { %>
+                        <div class="input-field col s12" style="display: flex; width: 100%; min-height: 7em;">
+                            <% smileyRating.forEach(opt => { %>
+                                <div style="display: flex; width: 100%; justify-content: space-evenly;"> <label> 
+                                    <input name="<%= item._id %>" value="<%= opt.text  %>" type="radio" /> 
+                                    <div class="star-span emoji-div">
+                                        <span class="emoji <%= opt.text %>" id="<%= opt.text %>" onclick="emoji('<%= opt.text %>')"> <%- opt.emoji %> </span><span class="emoji-text" id="<%= opt.text  %>-text" ><%= opt.text  %></span>
+                                    </div> 
+                                </label> </div>
+                            <% }) %>
+                        </div>
+                    <% } else if(item.QType === 'thumbUpDown') { %>
+                        <div class="input-field col s12" style="display: flex;">
+                            <p> <label> 
+                                <input name="<%= item._id %>" value="like" type="radio" /> 
+                                <span class="star-span">
+                                    <i id="like" onclick="thumb('like')" class="material-icons large thumb">thumb_up</i><br><span class="grey-text">Like it</span>
+                                </span> 
+                            </label> </p>
+                            <p> <label> 
+                                <input name="<%= item._id %>" value="dislike" type="radio" /> 
+                                <span class="star-span">
+                                    <i id="dislike" onclick="thumb('dislike')" class="material-icons large thumb">thumb_down</i> <br> <span class="grey-text">Dislike it</span>
+                                </span> 
+                            </label> </p>
+                        </div>
+                    <% } else if(item.QType === 'slider') { %>
+                        <div class="input-field col s12">
+                            <span class="grey-text">Min: 0</span> <span class="grey-text" style="margin-left: 10px;">Max: 100</span>
+                            <p class="range-field">
+                                <input name="<%= item._id %>" type="range" id="test5" min="0" max="100" />
+                            </p>  
+                        </div>
+                    <% } else if(item.QType === 'comment') { %>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">speaker_notes</i> <textarea name="<%= item._id %>" id="textarea1" class="materialize-textarea"></textarea> <label for="icon_prefix">Comments / Suggestions</label>
+                        </div>
+                    <% }else{ %>
+                        <div class="input-field col s12">
+                            <p> 
+                                <label> 
+                                    <input 
+                                        class="with-gap" 
+                                        name="<%= item._id %>"
+                                        value="yes" 
+                                        type="radio" /> 
+                                    <span>YES</span> 
+                                </label>
+                            </p>
+                            <p> 
+                                <label> 
+                                    <input 
+                                        class="with-gap" 
+                                        name="<%= item._id %>"
+                                        value="no" 
+                                        type="radio" /> 
+                                    <span>NO</span> 
+                                </label>
+                            </p>
+                            <p> 
+                                <label> 
+                                    <input 
+                                        class="with-gap" 
+                                        name="<%= item._id %>"
+                                        value="notSure" 
+                                        type="radio" /> 
+                                    <span>Not Sure</span> 
+                                </label>
+                            </p>
+                        </div>
+                    <% } %>       
+                </div>
+            </div>
+        <% })  %>
+        <div class="row center">
+            <button class="btn waves-effect waves-light" type="submit">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
+<!-- <script src="/js/star.js"></script> -->
+<script>
+    window.onload = function() {
+        M.AutoInit();
+        var elems  = document.querySelectorAll("input[type=range]");
+        M.Range.init(elems);
+    };
+    const color = (star) =>{
+        for(let index = 1; index <= star; index++){
+            document.getElementById(`${index}-star`).style.color = 'orange';
+        }
+    };
+    const nocolor = (star) =>{
+        for(let index = 1; index <= star; index++){
+            document.querySelector(`.unmarked-${index}`).style.color = '#9e9e9e';
+        }
+    };
+    const mark = (star) =>{
+        for(let index = 1; index <= 5; index++){
+            document.getElementById(`${index}-star`).classList.remove(`marked`);
+        }
+        for(let index = 1; index <= star; index++){
+            document.getElementById(`${index}-star`).classList.add(`marked`);
+        }
+    };
+    const emoji = (id) => {
+        const emojis = document.querySelectorAll('.emoji');
+        const texts = document.querySelectorAll('.emoji-text')
+        emojis.forEach(emoji => {
+            emoji.classList.remove('smiley');
+        });
+        texts.forEach(text => {
+            text.style.color = '#9e9e9e';
+        });
+        document.getElementById(id).classList.add('smiley');
+        document.getElementById(`${id}-text`).style.color = 'orangered';
+    };
+    const thumb = (opt) => {
+        const thumbs = document.querySelectorAll('.thumb');
+        thumbs.forEach(t => {
+            t.style.color = '#9e9e9e';
+        });
+        document.getElementById(opt).style.color = 'red';
+    };
+</script>
+<%- include ('../partials/_footer')  %> 

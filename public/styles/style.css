@@ -1,0 +1,25 @@
+.star-span::after,
+.star-span::before{
+    display: none;
+}
+.star-span.emoji-div{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.emoji{
+    transition: all 0.3s;
+    font-size:40px;
+}
+.marked{
+    color: orange!important;
+}
+.smiley{
+    font-size: 50px;
+    color: orangered;
+}
+::-webkit-scrollbar{
+    width: 0;
+}
