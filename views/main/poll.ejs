@@ -2,7 +2,7 @@
 <div class="container" style="margin-bottom: 4em;">
     <h4 class="center poll-title capital-text">
         <%- view!=='preview' ? `<span class="indigo-text">${survey.title}</span>`: `<span class="green-text">${survey.title}</span> <span style="font-size: 50%;" class="light-blue-text">Preview</span>`  %>
-        <% if(view==='preview' && typeof user !== 'undefined' && survey.user._id.equals(user._id)) {%> 
+        <% if(view==='preview' && typeof user !== 'undefined' && survey.user._id.equals(user._id) && (survey.surveyQs.length !== 0)) {%> 
             <a href="/survey/analyze/<%= survey._id  %>" class="btn waves-effect waves-light orange" style="float: right;">Analyze Responses
                 <i class="material-icons left" style="font-size: 2em;">insert_chart</i>
             </a>
@@ -11,6 +11,11 @@
     <% if(view !== 'preview'){ %>
         <form action="/survey/response/<%= survey._id  %>" method="post">
     <%  }  %>
+    <% if (survey.surveyQs.length === 0) { %>
+        <h3 class="center red-text">
+            No Question added till now !!
+        </h3>
+    <% }else { %> 
         <% survey.surveyQs.forEach(item => { %>
             <div class="row z-depth-1">
                 <div class="col s12">
@@ -130,14 +135,15 @@
                 </div>
             </div>
         <% })  %>
-        <% if(view !== 'preview'){ %>
+        <% } %> 
+        <% if(view !== 'preview' && (survey.surveyQs.length !== 0)){ %>
             <div class="row center">
                 <button class="btn waves-effect waves-light" type="submit">Submit
                     <i class="material-icons right">send</i>
                 </button>
             </div>
         </form>
-        <%  }else { %>
+        <%  }else if (survey.surveyQs.length !== 0) { %>
             <div class="row">
                 <a class="btn waves-effect waves-light deep-orange modal-trigger" href="#share-modal">Share
                     <i class="material-icons left">share</i>
@@ -158,8 +164,9 @@
     </div>
   </div>
 <!-- ------------ -->
-<!-- <script src="/js/star.js"></script> -->
-<%- include ('../partials/_script')  %> 
+
+
+<%- include ('../partials/_script')  %>
 <script>
     window.onload = function() {
         // SHARE LINKS
