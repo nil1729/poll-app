@@ -4,7 +4,7 @@
     <div class="row story-container mt-2">
         <% surveys.forEach(item => { %>
             <% if( (item.surveyQs.length !== 0 ) || ( typeof view === 'undefined' && typeof user!=='undefined' && owner._id.equals(user._id))) { %> 
-            <div class="col s12 m4 mb-2">
+            <div class="col s12 m6 l6 xl4 mb-2">
                 <div class="card center card-public">
                   <% if( typeof user !== 'undefined' && item.user._id.equals(user._id)){ %> 
                     <div class="card-image">

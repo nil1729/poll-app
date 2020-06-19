@@ -22,10 +22,13 @@ router.post('/register', async (req, res) => {
         });
         newUser.password = await bcrypt.hash(newUser.password, 10);
         newUser = await newUser.save();
-        res.json({newUser});
+        req.flash('error', 'Suucessfully Registered');
+        req.flash('success', 'Kindly login now');
+        res.redirect('/auth/login');
     } catch (e) {
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 
@@ -36,8 +39,10 @@ router.get('/login', (req, res) => {
 
 // Standard Login POST
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/users/dashboard'
+    successFlash: true,
+    failureFlash: true,
+    successRedirect: '/users/dashboard',
+    failureRedirect: '/auth/login'
 }),(req, res) => {});
 
 
@@ -50,12 +55,14 @@ router.get('/google',
 router.get('/google/callback', 
   passport.authenticate('google'),
   function(req, res) {
+    req.flash('success', 'Successfully Signed in');
     res.redirect('/users/dashboard');
 });
 
 // Logout Route
 router.get('/logout', async (req, res) => {
     req.logOut();
+    req.flash('success', 'Successfully logged out');
     res.redirect('/');
 });
 

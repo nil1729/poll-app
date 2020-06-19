@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 const Survey = require('../models/Survey');
 const checkAuthentication = require('../middleware/checkAuthentication');
+const checkAuthorization = require('../middleware/checkAuthorization');
 const moment = require('moment');
 
 
@@ -39,33 +40,39 @@ router.post('/survey', checkAuthentication, async (req, res) => {
             showDate: moment(new Date()).format("MMMM Do YYYY")
         });
         newSurvey = await newSurvey.save();
+        req.flash('success', 'Survey created Successfully');
         res.redirect('back');
     } catch (e) {
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 
 // Survey Update
-router.put('/survey/:id', checkAuthentication, async (req, res) => {
+router.put('/survey/:id', checkAuthorization, async (req, res) => {
     try{
         const {title} = req.body;
         await Survey.updateOne({_id: req.params.id}, {title});
+        req.flash('success', 'Survey title Updated');
         res.redirect('back');
     }catch(e){
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 
 // Survey Delete
-router.delete('/survey/:id', checkAuthentication, async (req, res) => {
+router.delete('/survey/:id', checkAuthorization, async (req, res) => {
     try{
         await Survey.findByIdAndDelete(req.params.id);
+        req.flash('success', 'Survey deleted Successfully');
         res.redirect('back');
     }catch(e){
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 

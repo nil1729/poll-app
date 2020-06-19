@@ -14,7 +14,7 @@
         <% survey.surveyQs.forEach(item => { %>
             <div class="row z-depth-1">
                 <div class="col s12">
-                    <p class="flow-text col s12"><%= item.QText  %></p>
+                    <p class="flow-text col s12 blue-text"><%= item.QText  %></p>
                     <% if(item.QType === 'singleSelect') { %>
                         <div class="input-field col s12">
                             <% item.options.forEach( option => { %>
@@ -159,6 +159,7 @@
   </div>
 <!-- ------------ -->
 <!-- <script src="/js/star.js"></script> -->
+<%- include ('../partials/_script')  %> 
 <script>
     window.onload = function() {
         // SHARE LINKS

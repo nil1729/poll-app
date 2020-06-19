@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const SurveyItem = require('../models/SurveyItem');
-const checkAuthentication = require('../middleware/checkAuthentication');
+// const checkAuthentication = require('../middleware/checkAuthentication');
+const checkAuthorization = require('../middleware/checkAuthorization');
 const Survey = require('../models/Survey');
 const smileyRating = [
     {'emoji': '&#128533', 'text': 'Extremely Unsatisfied'},
@@ -18,23 +19,25 @@ router.get('/public', async (req, res) => {
         res.render('main/public', {surveys, user: req.user, view: 'public'});
     } catch (e) {
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 
 // Survey Question add ( GET )
-router.get('/create/:id', checkAuthentication, async (req, res) => {
+router.get('/create/:id', checkAuthorization, async (req, res) => {
     try {
         const survey = await Survey.findById(req.params.id);
         res.render('main/create', {survey, user: req.user});
     } catch (e) {
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 
 // Survey Question Add ( POST ) 
-router.post('/create/:id', checkAuthentication, async (req, res) => {
+router.post('/create/:id', checkAuthorization, async (req, res) => {
     const {QType, QText, options} = req.body;
     try {
         let newQuestion = new SurveyItem({
@@ -46,10 +49,12 @@ router.post('/create/:id', checkAuthentication, async (req, res) => {
         let survey = await Survey.findById(req.params.id);
         survey.surveyQs.push(newQuestion);
         await Survey.updateOne({_id: survey._id}, survey);
+        req.flash('success', 'Question added Successfully');
         res.redirect(`/survey/preview/${survey.id}`);
     } catch (e) {
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 
@@ -60,7 +65,8 @@ router.get('/preview/:id', async(req, res) => {
         res.render('main/poll', {survey, user: req.user, view: 'preview', smileyRating});
     } catch (e) {
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 
@@ -93,15 +99,17 @@ router.post('/response/:id', async(req, res) => {
         let survey = await Survey.findById(req.params.id);
         survey.responses = survey.responses + 1;
         await Survey.updateOne({_id: req.params.id}, survey);
+        req.flash('success', 'Response recorded Successfully');
         res.redirect('/survey/public');   
     } catch (e) {
         console.log(e);
-        res.json({error: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 
 // frontend Client Side Rendering
-router.get('/survey-data/:id', checkAuthentication, async (req, res) => {
+router.get('/survey-data/:id', checkAuthorization, async (req, res) => {
     try {
         const surveys = await Survey.findById({_id: req.params.id}).populate('user').populate('surveyQs').exec();
         res.json(surveys);
@@ -111,13 +119,14 @@ router.get('/survey-data/:id', checkAuthentication, async (req, res) => {
     }
 });
 
-router.get('/analyze/:id', checkAuthentication, async (req, res) => {
+router.get('/analyze/:id', checkAuthorization, async (req, res) => {
     try {
         const survey = await Survey.findById({_id: req.params.id}).populate('user').populate('surveyQs').exec();
         res.render('main/analyze', {survey, id: survey._id, user: req.user, view: 'analyze'});
     } catch (e) {
         console.log(e);
-        res.json({msg: 'Server Error'});
+        req.flash('error', 'Sorry!! Server Error occurred');
+        res.redirect('back');
     }
 });
 module.exports = router;

@@ -12,7 +12,7 @@
         <ul class="footer-links">
             <li><a class="black-text text-lighten-3" href="/">Home</a></li>
             <li><a class="black-text text-lighten-3" href="/survey/public">Public Surveys</a></li>
-            <li><a class="black-text text-lighten-3" target="_blank" href="https://github.com/nil1729">Source Code</a></li>
+            <li><a class="black-text text-lighten-3" target="_blank" href="https://github.com/nil1729/poll-app">Source Code</a></li>
         </ul>
       </div>
     </div>
@@ -26,3 +26,13 @@
 <script>
     M.AutoInit();
 </script>
+<% if(error != '') { %>
+  <script>
+    M.toast({html: '<%= error %>'});
+  </script>
+<% } %> 
+<% if(success != '') { %>
+  <script>
+    M.toast({html: '<%= success %>'});
+  </script>
+<% } %>
