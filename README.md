@@ -61,4 +61,4 @@
 
 ---
 
-<p>Made With<span style="color: red;"> &#10084; </span>by Nilanjan Deb</p>
+<p style="text-align: center;">Made With<span style="color: red;"> &#10084; </span>by Nilanjan Deb</p>
