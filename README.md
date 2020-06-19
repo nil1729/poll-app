@@ -37,6 +37,7 @@
 ---
 ### Website Preview
 * #### `Home` Page ( Describe the features )
+    <img src="/preview/home.png" >
 * #### `Login and Resgister` Page ( For Authenticating Users ).
 * #### `Public Surveys` Page ( Show all surveys which atleast have one Question ).
 * #### `My Surveys` Page ( Show all of your Surveys either it has atlest one Question or not ).
