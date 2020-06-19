@@ -39,8 +39,18 @@
 * #### `Home` Page ( Describe the features )
     <img src="/preview/home.png" >
 * #### `Login and Resgister` Page ( For Authenticating Users ).
+    <img src="/preview/login.png" >
 * #### `Public Surveys` Page ( Show all surveys which atleast have one Question ).
+    <img src="/preview/public.png" >
 * #### `My Surveys` Page ( Show all of your Surveys either it has atlest one Question or not ).
+    <img src="/preview/my-survey.png" >
 * #### `Dashboard` ( User can manage all CRUD operation here in one single page).
+    <img src="/preview/dashboard.png" >
 * #### `Preview and Response` Page ( Show the particular survey with all of its Questions ).
+    <img src="/preview/preview.png" >
 * #### `Analysis` Page ( Show analysis of responses and Charts for a particular Survey ).
+    <img src="/preview/analyze.png" >
+
+---
+
+#####  Made with :heart: by [Nilanjan Deb](https://github.com/nil1729/).
