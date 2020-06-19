@@ -7,6 +7,13 @@ const config = require('config');
 const connectDB = require('./config/db');
 const passportConfig = require('./config/passport');
 const methodOverride = require('method-override');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const hpp = require('hpp');
+const rateLimit = require("express-rate-limit");
+const cors = require('cors');
+
 
 // Database Connect
 connectDB();
@@ -17,6 +24,17 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 
+// Security
+app.use(mongoSanitize());
+app.use(helmet());
+app.use(xss());
+app.use(hpp());
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, 
+    max: 50
+});
+app.use(limiter);
+app.use(cors());
 
 // Session Setup
 app.use(session({

@@ -41,6 +41,19 @@
 3. Easily Understandable to all users.
 
 ---
+
+* ### Security
+1. Encrypt passwords.
+2. Prevent cross site scripting - XSS.
+3. Prevent NoSQL injections.
+4. Add a rate limit for requests of 50 requests per 10 minutes.
+5. Protect against http param polution.
+6. Add headers for security (helmet).
+7. Use cors to make API public.
+
+---
+
+
 ## Website Preview
 * ### `Home` Page ( Describe the features )
     <img src="./preview/home.png" >
@@ -61,4 +74,4 @@
 
 ---
 
-<p style="text-align: center;">Made With<span style="color: red;"> &#10084; </span>by Nilanjan Deb</p>
+<p style="text-align: center;">Made With<span style="color: red;"> &#10084; </span>by <a href="https://github.com/nil1729" target="_blank"> Nilanjan Deb </a> </p>
