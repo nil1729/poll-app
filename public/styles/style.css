@@ -219,6 +219,9 @@ main {
     .register-h3{
         font-size: 2.6em;
     }
+    .alert-text-poll{
+        font-size: 1.7em;
+    }
 }
 @media only screen and (max-width: 1024px){
     .survey-action-btns{
