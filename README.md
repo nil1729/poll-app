@@ -43,13 +43,13 @@
 ---
 
 * ### Security
-1. Encrypt passwords.
-2. Prevent cross site scripting - XSS.
-3. Prevent NoSQL injections.
-4. Add a rate limit for requests of 50 requests per 10 minutes.
-5. Protect against http param polution.
-6. Add headers for security (helmet).
-7. Use cors to make API public.
+1. Encrypt passwords with `bcrypt`
+2. Prevent cross site scripting - `XSS` using `xss-clean`.
+3. Prevent NoSQL injections using `express-mongo-sanitize`.
+4. Add a rate limit for requests of 50 requests per 10 minutes using `express-rate-limit`.
+5. Protect against http param polution using `hpp`.
+6. Add headers for security using `helmet`.
+7. Use `CORS` to make API public.
 
 ---
 
