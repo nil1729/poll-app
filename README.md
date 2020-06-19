@@ -61,4 +61,4 @@
 
 ---
 
-#####  Made with :heart: by [Nilanjan Deb](https://github.com/nil1729/).
+<p>Made With<span style="color: red;"> &#10084; </span>by Nilanjan Deb</p>
