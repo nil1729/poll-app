@@ -46,6 +46,8 @@
     <img src="/preview/my-survey.png" >
 * #### `Dashboard` ( User can manage all CRUD operation here in one single page).
     <img src="/preview/dashboard.png" >
+* #### `Add Question` Page ( Add Question to a particular Survey ).
+    <img src="/preview/question.png" >
 * #### `Preview and Response` Page ( Show the particular survey with all of its Questions ).
     <img src="/preview/preview.png" >
 * #### `Analysis` Page ( Show analysis of responses and Charts for a particular Survey ).
