@@ -4,19 +4,39 @@ const SurveyItem = require('../models/SurveyItem');
 // const checkAuthentication = require('../middleware/checkAuthentication');
 const checkAuthorization = require('../middleware/checkAuthorization');
 const Survey = require('../models/Survey');
-const smileyRating = [
-    {'emoji': '&#128533', 'text': 'Extremely Unsatisfied'},
-    {'emoji': '&#128577', 'text': 'Unsatisfied'},
-    {'emoji': '&#128528', 'text': 'Neutral'},
-    {'emoji': '&#128522', 'text': 'Satisfied'},
-    {'emoji': '&#128512', 'text': 'Extremely Satisfied'}
+const smileyRating = [{
+        'emoji': '&#128533',
+        'text': 'Extremely Unsatisfied'
+    },
+    {
+        'emoji': '&#128577',
+        'text': 'Unsatisfied'
+    },
+    {
+        'emoji': '&#128528',
+        'text': 'Neutral'
+    },
+    {
+        'emoji': '&#128522',
+        'text': 'Satisfied'
+    },
+    {
+        'emoji': '&#128512',
+        'text': 'Extremely Satisfied'
+    }
 ];
 
 // PUBLIC Surveys
 router.get('/public', async (req, res) => {
     try {
-        const surveys = await Survey.find().sort({createdAt: -1}).populate('user').populate('surveyQs').exec();
-        res.render('main/public', {surveys, user: req.user, view: 'public'});
+        const surveys = await Survey.find().sort({
+            createdAt: -1
+        }).populate('user').populate('surveyQs').exec();
+        res.render('main/public', {
+            surveys,
+            user: req.user,
+            view: 'public'
+        });
     } catch (e) {
         console.log(e);
         req.flash('error', 'Sorry!! Server Error occurred');
@@ -28,7 +48,10 @@ router.get('/public', async (req, res) => {
 router.get('/create/:id', checkAuthorization, async (req, res) => {
     try {
         const survey = await Survey.findById(req.params.id);
-        res.render('main/create', {survey, user: req.user});
+        res.render('main/create', {
+            survey,
+            user: req.user
+        });
     } catch (e) {
         console.log(e);
         req.flash('error', 'Sorry!! Server Error occurred');
@@ -38,8 +61,23 @@ router.get('/create/:id', checkAuthorization, async (req, res) => {
 
 // Survey Question Add ( POST ) 
 router.post('/create/:id', checkAuthorization, async (req, res) => {
-    const {QType, QText, options} = req.body;
+    const {
+        QType,
+        QText,
+        option__1,
+        option__2,
+        option__3,
+        option__4
+    } = req.body;
     try {
+        let options;
+        if (option__1) {
+            options = [option__1,
+                option__2,
+                option__3,
+                option__4
+            ]
+        }
         let newQuestion = new SurveyItem({
             QType,
             QText,
@@ -48,7 +86,9 @@ router.post('/create/:id', checkAuthorization, async (req, res) => {
         newQuestion = await newQuestion.save();
         let survey = await Survey.findById(req.params.id);
         survey.surveyQs.push(newQuestion);
-        await Survey.updateOne({_id: survey._id}, survey);
+        await Survey.updateOne({
+            _id: survey._id
+        }, survey);
         req.flash('success', 'Question added Successfully');
         res.redirect(`/survey/preview/${survey.id}`);
     } catch (e) {
@@ -59,10 +99,15 @@ router.post('/create/:id', checkAuthorization, async (req, res) => {
 });
 
 // Survey Priview
-router.get('/preview/:id', async(req, res) => {
+router.get('/preview/:id', async (req, res) => {
     try {
         const survey = await Survey.findById(req.params.id).populate('user').populate('surveyQs').exec();
-        res.render('main/poll', {survey, user: req.user, view: 'preview', smileyRating});
+        res.render('main/poll', {
+            survey,
+            user: req.user,
+            view: 'preview',
+            smileyRating
+        });
     } catch (e) {
         console.log(e);
         req.flash('error', 'Sorry!! Server Error occurred');
@@ -71,36 +116,47 @@ router.get('/preview/:id', async(req, res) => {
 });
 
 // Survey Response ( GET ) 
-router.get('/response/:id', async(req, res) => {
+router.get('/response/:id', async (req, res) => {
     try {
         const survey = await Survey.findById(req.params.id).populate('user').populate('surveyQs').exec();
-        res.render('main/poll', {survey, user: req.user, view: 'response', smileyRating});
+        res.render('main/poll', {
+            survey,
+            user: req.user,
+            view: 'response',
+            smileyRating
+        });
     } catch (e) {
         console.log(e);
-        res.json({error: 'Server Error'});
+        res.json({
+            error: 'Server Error'
+        });
     }
 });
 
 // Survey Response ( POST ) 
-router.post('/response/:id', async(req, res) => {
+router.post('/response/:id', async (req, res) => {
     try {
         const response = req.body;
         const keys = Object.keys(response);
         keys.forEach(async key => {
             let surveyItem = await SurveyItem.findById(key);
             const data = response[key];
-            if(typeof data === 'object'){
+            if (typeof data === 'object') {
                 surveyItem.responses.push(...data);
-            }else{
+            } else {
                 surveyItem.responses.push(data);
             }
-            surveyItem = await SurveyItem.updateOne({_id: surveyItem._id}, surveyItem);
+            surveyItem = await SurveyItem.updateOne({
+                _id: surveyItem._id
+            }, surveyItem);
         });
         let survey = await Survey.findById(req.params.id);
         survey.responses = survey.responses + 1;
-        await Survey.updateOne({_id: req.params.id}, survey);
+        await Survey.updateOne({
+            _id: req.params.id
+        }, survey);
         req.flash('success', 'Response recorded Successfully');
-        res.redirect('/survey/public');   
+        res.redirect('/survey/public');
     } catch (e) {
         console.log(e);
         req.flash('error', 'Sorry!! Server Error occurred');
@@ -111,18 +167,29 @@ router.post('/response/:id', async(req, res) => {
 // frontend Client Side Rendering
 router.get('/survey-data/:id', checkAuthorization, async (req, res) => {
     try {
-        const surveys = await Survey.findById({_id: req.params.id}).populate('user').populate('surveyQs').exec();
+        const surveys = await Survey.findById({
+            _id: req.params.id
+        }).populate('user').populate('surveyQs').exec();
         res.json(surveys);
     } catch (e) {
         console.log(e);
-        res.json({msg: 'Server Error'});
+        res.json({
+            msg: 'Server Error'
+        });
     }
 });
 
 router.get('/analyze/:id', checkAuthorization, async (req, res) => {
     try {
-        const survey = await Survey.findById({_id: req.params.id}).populate('user').populate('surveyQs').exec();
-        res.render('main/analyze', {survey, id: survey._id, user: req.user, view: 'analyze'});
+        const survey = await Survey.findById({
+            _id: req.params.id
+        }).populate('user').populate('surveyQs').exec();
+        res.render('main/analyze', {
+            survey,
+            id: survey._id,
+            user: req.user,
+            view: 'analyze'
+        });
     } catch (e) {
         console.log(e);
         req.flash('error', 'Sorry!! Server Error occurred');

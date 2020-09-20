@@ -1,4 +1,4 @@
-<%- include ('../partials/_header')  %> 
+<%- include ('../partials/_header')  %>
 <div class="container" style="margin: 1em auto 3em auto; width: 90vw;">
     <h4 class="center orange-text capital-text analyze-title">
         <%= survey.title  %> <span style="font-size: 60%;" class="grey-text">Chart and Analysis</span>
@@ -7,24 +7,25 @@
         </button>
     </h4>
     <% survey.surveyQs.forEach(item => { %>
-        <div class="row z-depth-1" style="padding-bottom: 1em;">
-            <p class="flow-text col s12 center blue-text QText"><%= item.QText  %></p>
+    <div class="row z-depth-1" style="padding-bottom: 1em;">
+        <p class="flow-text col s12 center blue-text QText"><%= item.QText  %></p>
         <% if(item.QType !== 'comment') { %>
-                <div class="col s12 m6">
-                    <canvas id="<%= item._id  %>-bar"></canvas>
-                </div>
-                <div class="col s12 m6">
-                    <canvas id="<%= item._id  %>-doughnut"></canvas>
-                </div>
-        <% }else { %>
-            <% for(let i=0;i<item.responses.length;i++){ %>
-                <p class="col s12"><span style="color: crimson;"><%= i+1 %>.</span>  <span style="font-size: 1.2em;"><%= item.responses[i] %></span></p>
-            <% } %> 
-        <% } %>
+        <div class="col s12 m6">
+            <canvas id="<%= item._id  %>-bar"></canvas>
         </div>
-    <% })  %> 
+        <div class="col s12 m6">
+            <canvas id="<%= item._id  %>-doughnut"></canvas>
+        </div>
+        <% }else { %>
+        <% for(let i=0;i<item.responses.length;i++){ %>
+        <p class="col s12"><span style="color: crimson;"><%= i+1 %>.</span> <span
+                style="font-size: 1.2em;"><%= item.responses[i] %></span></p>
+        <% } %>
+        <% } %>
+    </div>
+    <% })  %>
 </div>
-<%- include ('../partials/_script') %> 
+<%- include ('../partials/_script') %>
 <script src="/js/Chart.js"></script>
 <script src="/js/types.js"></script>
 <script>
@@ -40,15 +41,15 @@
                     let option = responses[i];
                     counts[option] = counts[option] ? counts[option] + 1 : 1;
                 }
-                if(d.QType === 'singleSelect' || d.QType === 'multipleSelect'){
+                if (d.QType === 'singleSelect' || d.QType === 'multipleSelect') {
                     options = Object.values(d.options);
                     options.forEach(option => {
-                        if(typeof counts[option] === 'undefined'){
+                        if (typeof counts[option] === 'undefined') {
                             counts[option] = 0;
                         }
                     });
-                }else{
-                    if(d.QType === 'slider'){
+                } else {
+                    if (d.QType === 'slider') {
                         counts = {
                             '0 <= x <= 25': 0,
                             '25 < x <= 50': 0,
@@ -57,28 +58,28 @@
                         };
                         for (let i = 0; i < responses.length; i++) {
                             let option;
-                            if(responses[i] <= 25){
+                            if (responses[i] <= 25) {
                                 option = '0 <= x <= 25';
                             }
-                            if(responses[i] > 25 && responses[i] <= 50){
+                            if (responses[i] > 25 && responses[i] <= 50) {
                                 option = '25 < x <= 50';
                             }
-                            if(responses[i] > 50 && responses[i] <= 75){
+                            if (responses[i] > 50 && responses[i] <= 75) {
                                 option = '50 < x <= 75';
                             }
-                            if(responses[i] > 75){
+                            if (responses[i] > 75) {
                                 option = '75 < x <= 100';
                             }
                             counts[option] = counts[option] ? counts[option] + 1 : 1;
                         }
-                    }else{
+                    } else {
                         options = optionTypes[d.QType];
                     }
                 }
-                if(d.QType !== 'comment'){
-                    if(d.QType !== 'slider'){
+                if (d.QType !== 'comment') {
+                    if (d.QType !== 'slider') {
                         options.forEach(option => {
-                            if(typeof counts[option] === 'undefined'){
+                            if (typeof counts[option] === 'undefined') {
                                 counts[option] = 0;
                             }
                         });
@@ -91,7 +92,7 @@
                     ChartData(d._id, data, 'bar');
                     ChartData(d._id, data, 'doughnut');
                 }
-            });   
+            });
         } catch (e) {
             console.log(e);
         }
@@ -101,4 +102,4 @@
         window.print();
     };
 </script>
-<%- include ('../partials/_footer')  %> 
+<%- include ('../partials/_footer')  %>

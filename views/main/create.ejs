@@ -1,7 +1,8 @@
-<%- include ('../partials/_header')  %> 
+<%- include ('../partials/_header')  %>
 <div class="container" style="margin-bottom: 4em;">
     <p class="flow-text d-flex-fit orange-text text-darken-2">
-        <span class="blue-text capital-text"><%= survey.title  %></span> <i class="material-icons grey-text">keyboard_arrow_right</i> Add Question
+        <span class="blue-text capital-text"><%= survey.title  %></span> <i
+            class="material-icons grey-text">keyboard_arrow_right</i> Add Question
     </p>
     <form action="/survey/create/<%= survey._id %>" method="POST">
         <div class="row">
@@ -18,24 +19,24 @@
                 <div class="input-field col s12">
                     <select name="QType" required onchange="demoOpen(this.value)">
                         <option value="" disabled selected>Choose your option</option>
-                      <optgroup label="Multiple Choice">
-                        <option value="singleSelect">Select One</option>
-                        <option value="multipleSelect">Select Many</option>
-                        <!-- <option value="dropdown">Drop-down Menu</option> -->
-                        <option value="yesNo">Yes / No</option>
-                      </optgroup>
-                      <optgroup label="Graphical Rating">
-                        <option value="starRating">Star Rating</option>
-                        <option value="smileyRating">Smiley Rating</option>
-                        <option value="thumbUpDown">Thumbs Up / Down</option>
-                        <option value="slider">Slider</option>
-                      </optgroup>
-                      <optgroup label="Others">
-                        <option value="comment">Comment Box</option>
-                      </optgroup>
+                        <optgroup label="Multiple Choice">
+                            <option value="singleSelect">Select One</option>
+                            <option value="multipleSelect">Select Many</option>
+                            <!-- <option value="dropdown">Drop-down Menu</option> -->
+                            <option value="yesNo">Yes / No</option>
+                        </optgroup>
+                        <optgroup label="Graphical Rating">
+                            <option value="starRating">Star Rating</option>
+                            <option value="smileyRating">Smiley Rating</option>
+                            <option value="thumbUpDown">Thumbs Up / Down</option>
+                            <option value="slider">Slider</option>
+                        </optgroup>
+                        <optgroup label="Others">
+                            <option value="comment">Comment Box</option>
+                        </optgroup>
                     </select>
                     <label>Question Type Select</label>
-                  </div>
+                </div>
             </div>
         </div>
         <!-- Demo -->
@@ -48,19 +49,19 @@
             <div class="col s12 m12">
                 <h6 class="col s12" style="margin-bottom: 1em;">Create Options for Multiple Choice</h6>
                 <div class="input-field col s12 m6">
-                    <input type="text" class="validate" name="options[1]">
+                    <input type="text" class="validate" name="option__1">
                     <label for="option1">Option1</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input type="text" class="validate" name="options[2]">
+                    <input type="text" class="validate" name="option__2">
                     <label for="option2">Option2</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input type="text" class="validate" name="options[3]">
+                    <input type="text" class="validate" name="option__3">
                     <label for="option3">Option3</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input type="text" class="validate" name="options[4]">
+                    <input type="text" class="validate" name="option__4">
                     <label for="option4">Option4</label>
                 </div>
             </div>
@@ -74,7 +75,7 @@
         </div>
     </form>
 </div>
-<%- include ('../partials/_script') %> 
+<%- include ('../partials/_script') %>
 <script src="/js/demo.js"></script>
 <script>
     M.AutoInit();
@@ -82,9 +83,9 @@
     const optionCreate = document.querySelector('.option-create');
     const questionText = document.querySelector('.question-text');
     const demoOpen = (type) => {
-        if(type === 'singleSelect' || type === 'multipleSelect'){
+        if (type === 'singleSelect' || type === 'multipleSelect') {
             optionCreate.style.display = 'block';
-        }else{
+        } else {
             optionCreate.style.display = 'none';
         }
         demo.innerHTML = `
@@ -96,4 +97,4 @@
         `;
     };
 </script>
-<%- include ('../partials/_footer')  %> 
+<%- include ('../partials/_footer')  %>

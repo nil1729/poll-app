@@ -1,33 +1,37 @@
 .star-span::after,
-.star-span::before{
+.star-span::before {
     display: none;
 }
-.star-span.emoji-div{
+
+.star-span.emoji-div {
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.emoji{
+
+.emoji {
     transition: all 0.3s;
-    font-size:40px;
+    font-size: 40px;
 }
-.marked{
-    color: orange!important;
+
+.marked {
+    color: orange !important;
 }
-.smiley{
+
+.smiley {
     font-size: 50px;
     color: orangered;
 }
-::-webkit-scrollbar{
-    width: 0;
-}
-.G-logo{
+
+
+.G-logo {
     height: 3em;
     width: 3em;
 }
-.g-sign{
+
+.g-sign {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,232 +39,291 @@
     padding: 2px 5px 2px 2px;
     background-color: rgb(66, 133, 244);
     margin: auto;
-    font-weight: 400!important;
+    font-weight: 400 !important;
     letter-spacing: 0.5px;
     transition: all 0.3s;
 }
-.g-sign:hover{
+
+.g-sign:hover {
     box-shadow: 0 0 10px rgb(66, 133, 244);
     background-color: rgba(66, 134, 244, 0.9)
 }
-.g-sign img{
+
+.g-sign img {
     background-color: aliceblue;
 }
-.g-sign span{
-    color: white!important;
+
+.g-sign span {
+    color: white !important;
     width: 10em;
     padding-left: 2px;
     font-size: 1.3em;
 }
+
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
-.d-flex-fit{
+
+.d-flex-fit {
     display: flex;
     justify-content: center;
     align-items: center;
     width: fit-content;
 }
+
 main {
     flex: 1 0 auto;
 }
-#nav-mobile:nth-child(1){
-    display: block!important;
+
+#nav-mobile:nth-child(1) {
+    display: block !important;
 }
-.sidenav-trigger{
-    display: block!important;
+
+.sidenav-trigger {
+    display: block !important;
 }
-.sidenav-trigger .material-icons{
+
+.sidenav-trigger .material-icons {
     font-size: 2em;
 }
+
 /* .modal{
     max-height: unset!important;
 } */
-.s-text{
+.s-text {
     font-size: 1.3em;
 }
-.p-text{
+
+.p-text {
     font-size: 14px;
 }
-.p-l-text{
+
+.p-l-text {
     font-size: 1.2em;
 }
+
 .capital-text {
     text-transform: capitalize;
 }
-.d-inline{
+
+.d-inline {
     display: inline;
 }
 
-.btn-login{
-    font-size: 1.2em; 
+.btn-login {
+    font-size: 1.2em;
     margin-left: 5px;
 }
-.ml-1{
+
+.ml-1 {
     margin-left: 1em;
 }
-.m-1-0{
+
+.m-1-0 {
     margin: 1em 0;
 }
-.mt-2{
+
+.mt-2 {
     margin-top: 2em;
 }
-.mb-2{
+
+.mb-2 {
     margin-bottom: 2em;
 }
-.m-0-10-0-5{
+
+.m-0-10-0-5 {
     margin: 0 10px 0 5px;
 }
-.mr-10{
+
+.mr-10 {
     margin-right: 10px;
 }
-.mt-4{
+
+.mt-4 {
     margin-top: 4em;
 }
-#border-circle{
+
+#border-circle {
     border-radius: 50%;
 }
-.d-flex-start{
-    display: flex; 
-    justify-content: flex-start; 
-    align-items: center; 
-}
-.p-1-2{
-    padding: 1em 2em;
-}
-.d-flex-column-center{
-    display: flex; 
-    flex-direction: column; 
+
+.d-flex-start {
+    display: flex;
+    justify-content: flex-start;
     align-items: center;
 }
-.card-public{
-    min-height: 20rem; 
+
+.p-1-2 {
+    padding: 1em 2em;
+}
+
+.d-flex-column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-public {
+    min-height: 20rem;
     position: relative;
 }
-.card-img-profile{
-    height: 5em; 
-    width: 5em; 
+
+.card-img-profile {
+    height: 5em;
+    width: 5em;
     margin-bottom: 1em;
 }
-.profile-badge{
+
+.profile-badge {
     width: fit-content;
-    display: flex; 
-    justify-content: space-evenly; 
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
     border-radius: 30px;
 }
-.card-avatar{
+
+.card-avatar {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, 0%);
     margin: 1em auto;
 }
-.avatar-stamp{
-    height: 2.5em; 
+
+.avatar-stamp {
+    height: 2.5em;
     width: 2.5em;
 }
-.avatar-stamp-comment{
-    height: 2em; 
+
+.avatar-stamp-comment {
+    height: 2em;
     width: 2em;
 }
-.avatar-name{
+
+.avatar-name {
     margin: 0 10px;
 }
-#card-action-pos{
-    position: absolute; bottom: 0; width: 100%;
+
+#card-action-pos {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
-.ml-0{
-    margin-left: 0!important;
+
+.ml-0 {
+    margin-left: 0 !important;
 }
-.survey-action-btns .btn-form{
+
+.survey-action-btns .btn-form {
     display: inline;
 }
+
 .footer-links li {
     margin-top: 5px;
 }
-@media only screen and (max-width: 600px){
-    .flow-text{
+
+@media only screen and (max-width: 600px) {
+    .flow-text {
         font-size: 1.5em;
         font-weight: 600;
     }
-    .header-title{
-        font-size: 1.5em!important;
+
+    .header-title {
+        font-size: 1.5em !important;
     }
-    .dashboard-name{
+
+    .dashboard-name {
         font-size: 2.56rem;
     }
-    .modal{
+
+    .modal {
         width: 90%;
     }
-    .modal .modal-content{
+
+    .modal .modal-content {
         padding: 10px 5px;
     }
-    .view-name-public{
+
+    .view-name-public {
         font-size: 2em;
     }
-    .poll-title{
+
+    .poll-title {
         font-size: 1.8em;
     }
-    .poll-title a{
-        float: none!important;
+
+    .poll-title a {
+        float: none !important;
     }
-    .analyze-title{
+
+    .analyze-title {
         font-size: 1.5em;
     }
-    .analyze-title button{
-        float: none!important;
+
+    .analyze-title button {
+        float: none !important;
     }
-    .QText{
+
+    .QText {
         font-size: 1em;
     }
-    .register-h3{
+
+    .register-h3 {
         font-size: 2.6em;
     }
-    .alert-text-poll{
+
+    .alert-text-poll {
         font-size: 1.7em;
     }
 }
-@media only screen and (max-width: 1024px){
-    .survey-action-btns{
-        display: flex!important;
-        flex-direction: column!important;
-        justify-content: space-evenly!important;
-        align-items: center!important;
-        height: 11rem!important;
+
+@media only screen and (max-width: 1024px) {
+    .survey-action-btns {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-evenly !important;
+        align-items: center !important;
+        height: 11rem !important;
     }
-    .survey-action-btns .btn-form{
-        display: block!important;
+
+    .survey-action-btns .btn-form {
+        display: block !important;
     }
-    .survey-action-btns .action-a{
-        display: block!important;
+
+    .survey-action-btns .action-a {
+        display: block !important;
     }
 }
-@media only screen and (min-width: 900px){
-    .auth-container{
+
+@media only screen and (min-width: 900px) {
+    .auth-container {
         width: 40%;
     }
-    .modal .modal-content form{
+
+    .modal .modal-content form {
         width: 80%;
     }
 }
+
 /* ----------- */
 .rating {
     width: 226px;
     margin: 0 1em;
     font-size: 45px;
-    overflow:hidden;
+    overflow: hidden;
 }
+
 .rating input {
-float: right;
-opacity: 0;
-position: absolute;
+    float: right;
+    opacity: 0;
+    position: absolute;
 }
+
 .rating a,
 .rating label {
-    float:right;
+    float: right;
     color: #aaa;
     text-decoration: none;
     -webkit-transition: color .4s;
@@ -268,19 +331,56 @@ position: absolute;
     -o-transition: color .4s;
     transition: color .4s;
 }
-.rating label:hover ~ label,
-.rating input:focus ~ label,
+
+.rating label:hover~label,
+.rating input:focus~label,
 .rating label:hover,
 .rating a:hover,
-.rating a:hover ~ a,
+.rating a:hover~a,
 .rating a:focus,
-.rating a:focus ~ a		{
+.rating a:focus~a {
     color: orange;
     cursor: pointer;
 }
+
 .rating2 {
     direction: rtl;
 }
+
 .rating2 a {
-    float:none
+    float: none
+}
+
+/* Customize website's scrollbar like Mac OS
+Not supports in Firefox and IE */
+/* total width */
+::-webkit-scrollbar {
+    background-color: #fff;
+    width: 10px;
+}
+
+/* background of the scrollbar except button or resizer */
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: #f4f4f4;
+}
+
+/* scrollbar itself */
+::-webkit-scrollbar-thumb {
+    background-color: #babac0;
+    border-radius: 16px;
+    border: 2px solid #fff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a0a0a5;
+    border: 2px solid #f4f4f4;
+}
+
+/* set button(top and bottom of the scrollbar) */
+::-webkit-scrollbar-button {
+    display: none;
 }

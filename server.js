@@ -19,7 +19,9 @@ const cors = require('cors');
 connectDB();
 
 // Body Parser Setup
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({
+    extended: true
+}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
@@ -30,7 +32,7 @@ app.use(helmet());
 app.use(xss());
 app.use(hpp());
 const limiter = rateLimit({
-    windowMs: 10 * 60 * 1000, 
+    windowMs: 10 * 60 * 1000,
     max: 50
 });
 app.use(limiter);
@@ -45,7 +47,7 @@ app.use(session({
 
 // Connect Flash
 app.use(flash());
-app.use((req, res, next)=> {
+app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
@@ -58,7 +60,9 @@ app.use(passport.session());
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('main/index', {user: req.user});
+    res.render('main/index', {
+        user: req.user
+    });
 });
 app.use('/survey', require('./routes/survey'));
 app.use('/auth', require('./routes/auth'));
