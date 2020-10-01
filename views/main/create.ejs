@@ -1,100 +1,109 @@
-<%- include ('../partials/_header')  %>
-<div class="container" style="margin-bottom: 4em;">
-    <p class="flow-text d-flex-fit orange-text text-darken-2">
-        <span class="blue-text capital-text"><%= survey.title  %></span> <i
-            class="material-icons grey-text">keyboard_arrow_right</i> Add Question
-    </p>
-    <form action="/survey/create/<%= survey._id %>" method="POST">
-        <div class="row">
-            <div class="col s12 m8">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">create</i>
-                    <input name="QText" required id="icon_prefix" type="text" class="question-text validate">
-                    <label for="icon_prefix">Question Text</label>
-                </div>
-            </div>
+<%- include ('../partials/_header') %>
+<div class="container" style="margin-bottom: 4em">
+  <p class="flow-text d-flex-fit orange-text text-darken-2">
+    <span class="blue-text capital-text"><%= survey.title %></span>
+    <i class="material-icons grey-text">keyboard_arrow_right</i> Add Question
+  </p>
+  <form action="/survey/create/<%= survey._id %>" method="POST">
+    <div class="row">
+      <div class="col s12 m8">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">create</i>
+          <input
+            name="QText"
+            required
+            id="icon_prefix"
+            type="text"
+            class="question-text validate"
+          />
+          <label for="icon_prefix">Question Text</label>
         </div>
-        <div class="row">
-            <div class="col s12 m8">
-                <div class="input-field col s12">
-                    <select name="QType" required onchange="demoOpen(this.value)">
-                        <option value="" disabled selected>Choose your option</option>
-                        <optgroup label="Multiple Choice">
-                            <option value="singleSelect">Select One</option>
-                            <option value="multipleSelect">Select Many</option>
-                            <!-- <option value="dropdown">Drop-down Menu</option> -->
-                            <option value="yesNo">Yes / No</option>
-                        </optgroup>
-                        <optgroup label="Graphical Rating">
-                            <option value="starRating">Star Rating</option>
-                            <option value="smileyRating">Smiley Rating</option>
-                            <option value="thumbUpDown">Thumbs Up / Down</option>
-                            <option value="slider">Slider</option>
-                        </optgroup>
-                        <optgroup label="Others">
-                            <option value="comment">Comment Box</option>
-                        </optgroup>
-                    </select>
-                    <label>Question Type Select</label>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m8">
+        <div class="input-field col s12">
+          <select name="QType" required onchange="demoOpen(this.value)">
+            <option value="" disabled selected>Choose your option</option>
+            <optgroup label="Multiple Choice">
+              <option value="singleSelect">Select One</option>
+              <option value="multipleSelect">Select Many</option>
+              <!-- <option value="dropdown">Drop-down Menu</option> -->
+              <option value="yesNo">Yes / No</option>
+            </optgroup>
+            <optgroup label="Graphical Rating">
+              <option value="starRating">Star Rating</option>
+              <option value="smileyRating">Smiley Rating</option>
+              <option value="thumbUpDown">Thumbs Up / Down</option>
+              <option value="slider">Slider</option>
+            </optgroup>
+            <optgroup label="Others">
+              <option value="comment">Comment Box</option>
+            </optgroup>
+          </select>
+          <label>Question Type Select</label>
         </div>
-        <!-- Demo -->
-        <div class="row">
-            <div class="col s12 demo">
-            </div>
+      </div>
+    </div>
+    <!-- Demo -->
+    <div class="row">
+      <div class="col s12 demo"></div>
+    </div>
+    <!-- Demo Ends-->
+    <div class="row option-create" style="display: none">
+      <div class="col s12 m12">
+        <h6 class="col s12" style="margin-bottom: 1em">
+          Create Options for Multiple Choice
+        </h6>
+        <div class="input-field col s12 m6">
+          <input type="text" class="validate" name="option__1" />
+          <label for="option1">Option1</label>
         </div>
-        <!-- Demo Ends-->
-        <div class="row option-create" style="display: none;">
-            <div class="col s12 m12">
-                <h6 class="col s12" style="margin-bottom: 1em;">Create Options for Multiple Choice</h6>
-                <div class="input-field col s12 m6">
-                    <input type="text" class="validate" name="option__1">
-                    <label for="option1">Option1</label>
-                </div>
-                <div class="input-field col s12 m6">
-                    <input type="text" class="validate" name="option__2">
-                    <label for="option2">Option2</label>
-                </div>
-                <div class="input-field col s12 m6">
-                    <input type="text" class="validate" name="option__3">
-                    <label for="option3">Option3</label>
-                </div>
-                <div class="input-field col s12 m6">
-                    <input type="text" class="validate" name="option__4">
-                    <label for="option4">Option4</label>
-                </div>
-            </div>
+        <div class="input-field col s12 m6">
+          <input type="text" class="validate" name="option__2" />
+          <label for="option2">Option2</label>
         </div>
-        <div class="row">
-            <div class="col s12">
-                <button class="btn waves-effect waves-light" type="submit">Add Question
-                    <i class="material-icons right">add</i>
-                </button>
-            </div>
+        <div class="input-field col s12 m6">
+          <input type="text" class="validate" name="option__3" />
+          <label for="option3">Option3</label>
         </div>
-    </form>
+        <div class="input-field col s12 m6">
+          <input type="text" class="validate" name="option__4" />
+          <label for="option4">Option4</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <button class="btn waves-effect waves-light" type="submit">
+          Add Question
+          <i class="material-icons right">add</i>
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 <%- include ('../partials/_script') %>
 <script src="/js/demo.js"></script>
 <script>
-    M.AutoInit();
-    const demo = document.querySelector('.demo');
-    const optionCreate = document.querySelector('.option-create');
-    const questionText = document.querySelector('.question-text');
-    const demoOpen = (type) => {
-        if (type === 'singleSelect' || type === 'multipleSelect') {
-            optionCreate.style.display = 'block';
-        } else {
-            optionCreate.style.display = 'none';
-        }
-        demo.innerHTML = `
+  M.AutoInit();
+  const demo = document.querySelector(".demo");
+  const optionCreate = document.querySelector(".option-create");
+  const questionText = document.querySelector(".question-text");
+  const demoOpen = (type) => {
+    if (type === "singleSelect" || type === "multipleSelect") {
+      optionCreate.style.display = "block";
+    } else {
+      optionCreate.style.display = "none";
+    }
+    demo.innerHTML = `
         <div class="container z-depth-1" style="padding: 10px 1.5em; position: relative;">
             <h4 class="purple-text"> Demo Question </h4>
             <p class="flow-text">${questionText.value}</p>
             ${demos[type]}            
         </div>
         `;
-    };
+  };
 </script>
-<%- include ('../partials/_footer')  %>
+<%- include ('../partials/_footer') %>
+<!-- Remove Commit history -->
