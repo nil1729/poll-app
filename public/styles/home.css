@@ -1,29 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
-.home{
-    user-select: none;
+/* Just To Remove Comment */
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
+.home {
+  user-select: none;
 }
-.home h1{
-    font-family: 'MuseoModerno', cursive;
-    color: rgb(240, 40, 40);
-    text-shadow: 0 0 2px rgb(68, 67, 67);
+.home h1 {
+  font-family: "MuseoModerno", cursive;
+  color: rgb(240, 40, 40);
+  text-shadow: 0 0 2px rgb(68, 67, 67);
 }
-.home h3{
-    font-family: 'Sriracha', cursive;
-    color: rgb(79, 107, 231);
+.home h3 {
+  font-family: "Sriracha", cursive;
+  color: rgb(79, 107, 231);
 }
-@media only screen and (max-width: 600px){
-    .home h1{
-        font-size: 2.7em;
-    }
-    .home h3{
-        font-size: 1.5em;
-        text-align: center;
-    }
+@media only screen and (max-width: 600px) {
+  .home h1 {
+    font-size: 2.7em;
+  }
+  .home h3 {
+    font-size: 1.5em;
+    text-align: center;
+  }
 }
-@media only screen and (min-width: 1020px){
-    .home .row{
-        display: flex;
-        align-items: center;
-    }
+@media only screen and (min-width: 1020px) {
+  .home .row {
+    display: flex;
+    align-items: center;
+  }
 }

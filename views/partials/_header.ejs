@@ -1,102 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poll App</title>
-    <script src="https://kit.fontawesome.com/57aeb32e6c.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survey Poll App</title>
+    <script
+      src="https://kit.fontawesome.com/57aeb32e6c.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="/styles/home.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/home.css" />
+  </head>
+  <body>
     <main>
-        <div class="navbar-fixed">
-            <nav class="light-green lighten-3 indigo-text text-darken-4">
-            <div class="nav-wrapper">
-                <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li>
-                        <a href="#" data-target="slide-out" class="indigo-text text-darken-4 sidenav-trigger">
-                            <i class="material-icons left">menu</i>
-                        </a>
-                    </li>
-                </ul>
-              <span class="brand-logo center header-title red-text" style="letter-spacing: 1px; font-family: 'MuseoModerno', cursive; text-shadow: 0 0 2px rgb(68, 67, 67);">Survey Poll App</span>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                  <% if(typeof user === 'undefined') {%> 
-                    <li><a href="/survey/public" class="indigo-text text-darken-4"><i class="material-icons left">poll</i>Public Surveys</a></li>
-                    <% }else{ %>
-                    <li><span class="mr-10">Welcome <%= user.firstName %></span></li>
-                    <li><a href="/auth/logout" class="indigo-text text-darken-4"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                  <% } %> 
+      <div class="navbar-fixed">
+        <nav class="light-green lighten-3 indigo-text text-darken-4">
+          <div class="nav-wrapper">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+              <li>
+                <a
+                  href="#"
+                  data-target="slide-out"
+                  class="indigo-text text-darken-4 sidenav-trigger"
+                >
+                  <i class="material-icons left">menu</i>
+                </a>
+              </li>
             </ul>
-            </div>
-          </nav>
-        </div>
-        <ul id="slide-out" class="sidenav">
-            
-            <% if(typeof user === 'undefined') {%> 
-            <li>
-                <a class="btn waves-effect waves-light  red darken-2" href="/auth/google">
-                    <i class="fab fa-google white-text"></i> <span>Login With Google</span>  
-                </a>
-            </li>
-            <li>
-                <a href="/" class="indigo-text text-darken-4"><i class="material-icons left">home</i>Home</a></li>
-            <li>
-                <a href="/survey/public" class="indigo-text text-darken-4"><i class="material-icons left">poll</i>Public Surveys</a>
-            </li>
-            <li>
-                <a href="/auth/register" class="indigo-text text-darken-4"><i class="material-icons left">person_add</i>Register</a>
-            </li>
-            <% }else{ %>
-                    <li class="d-flex-start p-1-2">
-                        <div class="avatar-stamp">
-                            <img src="<%= user.avatar  %>" alt="" class="circle responsive-img">
-                        </div> 
-                        <p class="center flow-text ml-1"><%= user.firstName %> <%= user.lastName %></p>
-                    </li>
-                    <li><a href="/users/dashboard"><i class="fas fa-2x fa-user-cog"></i> Dashboard</a></li>
-                    <li><a href="/users/survey/<%= user._id  %>"><i class="fas fa-2x fa-user-tag"></i> My Surveys</a></li>
-                    <li><a href="/survey/public"><i class="material-icons left" style="font-size: 2.5em;">poll</i>Public Surveys</a></li>
-                    <li><a href="/auth/logout"><i class="fas fa-2x fa-sign-out-alt"></i>Logout</a></li>
-            <% } %>
-        </ul>
-        <% if( typeof user !== 'undefined' ) {%>
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large red waves-effect waves-light modal-trigger cyan" href="#survey-create">
-                <i class="large material-icons">add</i>
-            </a>
-        </div>
-        <div id="survey-create" class="modal">
-            <div class="modal-content">
-                <h4 class="green-text center">Create Survey</h4>
-                <form  action="/users/survey" method="post" style="margin: auto;">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">assignment</i>
-                                <input maxlength="20" required name="title" id="icon_prefix" type="text" class="validate">
-                                <label for="icon_prefix">Survey Title</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 center">
-                            <button class="btn waves-effect waves-light" type="submit">Add Survey
-                                <i class="material-icons right">create</i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a class="modal-close btn-small grey waves-effect waves-light">Close
-                    <i class="material-icons right">close</i>
-                </a>
-            </div>
+            <span
+              class="brand-logo center header-title red-text"
+              style="
+                letter-spacing: 1px;
+                font-family: 'MuseoModerno', cursive;
+                text-shadow: 0 0 2px rgb(68, 67, 67);
+              "
+              >Survey Poll App</span
+            >
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <% if(typeof user === 'undefined') {%>
+              <li>
+                <a href="/survey/public" class="indigo-text text-darken-4"
+                  ><i class="material-icons left">poll</i>Public Surveys</a
+                >
+              </li>
+              <% }else{ %>
+              <li><span class="mr-10">Welcome <%= user.firstName %></span></li>
+              <li>
+                <a href="/auth/logout" class="indigo-text text-darken-4"
+                  ><i class="fas fa-sign-out-alt"></i> Logout</a
+                >
+              </li>
+              <% } %>
+            </ul>
           </div>
-    <% } %> 
+        </nav>
+      </div>
+      <ul id="slide-out" class="sidenav">
+        <% if(typeof user === 'undefined') {%>
+        <li>
+          <a
+            class="btn waves-effect waves-light red darken-2"
+            href="/auth/google"
+          >
+            <i class="fab fa-google white-text"></i>
+            <span>Login With Google</span>
+          </a>
+        </li>
+        <li>
+          <a href="/" class="indigo-text text-darken-4"
+            ><i class="material-icons left">home</i>Home</a
+          >
+        </li>
+        <li>
+          <a href="/survey/public" class="indigo-text text-darken-4"
+            ><i class="material-icons left">poll</i>Public Surveys</a
+          >
+        </li>
+        <li>
+          <a href="/auth/register" class="indigo-text text-darken-4"
+            ><i class="material-icons left">person_add</i>Register</a
+          >
+        </li>
+        <% }else{ %>
+        <li class="d-flex-start p-1-2">
+          <div class="avatar-stamp">
+            <img
+              src="<%= user.avatar  %>"
+              alt=""
+              class="circle responsive-img"
+            />
+          </div>
+          <p class="center flow-text ml-1">
+            <%= user.firstName %> <%= user.lastName %>
+          </p>
+        </li>
+        <li>
+          <a href="/users/dashboard"
+            ><i class="fas fa-2x fa-user-cog"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="/users/survey/<%= user._id  %>"
+            ><i class="fas fa-2x fa-user-tag"></i> My Surveys</a
+          >
+        </li>
+        <li>
+          <a href="/survey/public"
+            ><i class="material-icons left" style="font-size: 2.5em">poll</i
+            >Public Surveys</a
+          >
+        </li>
+        <li>
+          <a href="/auth/logout"
+            ><i class="fas fa-2x fa-sign-out-alt"></i>Logout</a
+          >
+        </li>
+        <% } %>
+      </ul>
+      <% if( typeof user !== 'undefined' ) {%>
+      <div class="fixed-action-btn">
+        <a
+          class="btn-floating btn-large red waves-effect waves-light modal-trigger cyan"
+          href="#survey-create"
+        >
+          <i class="large material-icons">add</i>
+        </a>
+      </div>
+      <div id="survey-create" class="modal">
+        <div class="modal-content">
+          <h4 class="green-text center">Create Survey</h4>
+          <form action="/users/survey" method="post" style="margin: auto">
+            <div class="row">
+              <div class="col s12">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">assignment</i>
+                  <input
+                    maxlength="20"
+                    required
+                    name="title"
+                    id="icon_prefix"
+                    type="text"
+                    class="validate"
+                  />
+                  <label for="icon_prefix">Survey Title</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 center">
+                <button class="btn waves-effect waves-light" type="submit">
+                  Add Survey
+                  <i class="material-icons right">create</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a class="modal-close btn-small grey waves-effect waves-light"
+            >Close
+            <i class="material-icons right">close</i>
+          </a>
+        </div>
+      </div>
+      <% } %>
+    </main>
+  </body>
+</html>
