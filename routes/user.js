@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const Survey = require("../models/Survey");
+const SurveyItem = require("../models/SurveyItem");
 const checkAuthentication = require("../middleware/checkAuthentication");
 const checkAuthorization = require("../middleware/checkAuthorization");
 const moment = require("moment");
@@ -73,9 +74,36 @@ router.put("/survey/:id", checkAuthorization, async (req, res) => {
 // Survey Delete
 router.delete("/survey/:id", checkAuthorization, async (req, res) => {
   try {
+
+    // Retrieve survey
+    const survey = await Survey.findById(req.params.id)
+      .populate("surveyQs")
+      .exec();
+
+    let surveyItemsIdArray = []
+    
+    // Retrieve survey item IDs
+    survey.surveyQs.forEach(data => {
+        surveyItemsIdArray.push(data._id)
+    });
+
+    // Delete each survey item
+
+    await SurveyItem.deleteMany({
+        _id: { $in: surveyItemsIdArray }
+    }, 
+    function(e, result){
+        if(e){
+            console.log(e);
+            req.flash("error", "Sorry!! Server Error occurred");
+            res.redirect("back");
+        }
+    })
+    
     await Survey.findByIdAndDelete(req.params.id);
     req.flash("success", "Survey deleted Successfully");
     res.redirect("back");
+
   } catch (e) {
     console.log(e);
     req.flash("error", "Sorry!! Server Error occurred");
