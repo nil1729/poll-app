@@ -24,11 +24,13 @@ router.get("/dashboard", checkAuthentication, async (req, res) => {
 // My Surveys
 router.get("/survey/:id", async (req, res) => {
   try {
+
+    // Retrieve survey
     const surveys = await Survey.find({ user: req.params.id })
-      .sort({ createdAt: -1 })
-      .populate("user")
       .populate("surveyQs")
       .exec();
+
+    
     const user = await User.findById(req.params.id);
     res.render("main/public", { surveys, user: req.user, owner: user });
   } catch (e) {
@@ -73,6 +75,14 @@ router.put("/survey/:id", checkAuthorization, async (req, res) => {
 // Survey Delete
 router.delete("/survey/:id", checkAuthorization, async (req, res) => {
   try {
+    
+    // Retrieve survey 
+    const surveys = await Survey.findById(req.params.id)
+      .sort({ createdAt: -1 })
+      .populate("user")
+      .populate("surveyQs")
+      .exec();
+
     await Survey.findByIdAndDelete(req.params.id);
     req.flash("success", "Survey deleted Successfully");
     res.redirect("back");
