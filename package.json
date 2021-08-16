@@ -32,6 +32,7 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "nodemon": "^2.0.4"
   }
 }
