@@ -95,6 +95,74 @@ router.post('/create/:id', checkAuthorization, async (req, res) => {
 	}
 });
 
+// Survey Question Add ( POST )
+router.delete('/delete/:id/:questionId', checkAuthorization, async (req, res) => {
+	try {
+		const survey = await Survey.findById(req.params.id);
+		survey.surveyQs = survey.surveyQs.filter((item) => !item.equals(req.params.questionId));
+		await survey.save();
+		await SurveyItem.deleteOne({ _id: req.params.questionId });
+		res.redirect('back');
+	} catch (e) {
+		console.log(e);
+		req.flash('error', 'Sorry!! Server Error occurred');
+		res.redirect('back');
+	}
+});
+
+// Survey Question add ( GET )
+router.get('/edit/:id/:questionId', checkAuthorization, async (req, res) => {
+	try {
+		const survey = await Survey.findById(req.params.id);
+		if (!survey) {
+			req.flash('error', 'Not Found any Survey');
+			res.redirect('/users/dashboard');
+		}
+		const surveyItem = await SurveyItem.findById(req.params.questionId);
+		if (!surveyItem) {
+			req.flash('error', 'Not Found the requested Question');
+			res.redirect('/users/dashboard');
+		}
+		res.render('main/edit', {
+			survey,
+			user: req.user,
+			surveyItem,
+		});
+	} catch (e) {
+		console.log(e);
+		req.flash('error', 'Sorry!! Server Error occurred');
+		res.redirect('back');
+	}
+});
+
+router.put('/edit/:id/:questionId', checkAuthorization, async (req, res) => {
+	const { QType, QText, option__1, option__2, option__3, option__4 } = req.body;
+	try {
+		const surveyItem = await SurveyItem.findById(req.params.questionId);
+		if (!surveyItem) {
+			req.flash('error', 'Not Found the requested Question');
+			res.redirect('/users/dashboard');
+		}
+		let options;
+		if (option__1) {
+			options = [option__1, option__2, option__3, option__4];
+		}
+
+		surveyItem.QType = QType;
+		surveyItem.QText = QText;
+		surveyItem.options = options;
+		await surveyItem.save();
+
+		let survey = await Survey.findById(req.params.id);
+		req.flash('success', 'Question updated Successfully');
+		res.redirect(`/survey/preview/${survey.id}`);
+	} catch (e) {
+		console.log(e);
+		req.flash('error', 'Sorry!! Server Error occurred');
+		res.redirect('back');
+	}
+});
+
 // Survey Priview
 router.get('/preview/:id', async (req, res) => {
 	try {

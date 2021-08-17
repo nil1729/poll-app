@@ -4,7 +4,6 @@ const app = express();
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
-const config = require('config');
 const connectDB = require('./config/db');
 const passportConfig = require('./config/passport');
 const methodOverride = require('method-override');
