@@ -23,8 +23,8 @@
 		</div>
 		<div class="row">
 			<div class="col s12 m8">
-				<div class="input-field col s12">
-					<select name="QType" required onchange="demoOpen(this.value)">
+				<div class="input-field col s12 tooltipped" data-position="right" data-tooltip="You can't change the Question Type instead disable this question" style="cursor: pointer;">
+					<select name="QType" required onchange="demoOpen(this.value)" disabled>
 						<option value="" disabled selected>Choose your option</option>
 						<optgroup label="Multiple Choice">
 							<option value="singleSelect">Select One</option>
@@ -83,6 +83,17 @@
 			</div>
 		</div>
 	</form>
+	<hr>
+	<div class="row">
+		<div class="col s12">
+			<form action="/survey/edit/<%= survey._id %>/<%= surveyItem._id  %>/disable?_method=PUT" method="post">
+				<button class="btn waves-effect waves-light <%= surveyItem.disabled ? "green" : "red" %>" type="submit" style="margin: 15px 0 0 0">
+					<%= surveyItem.disabled ? "Enable" : "Disable" %> Question
+					<i class="material-icons right"><%= surveyItem.disabled ? "lock_open" : "lock" %></i>
+				</button>
+			</form>
+		</div>
+	</div>
 </div>
 <%- include ('../partials/_script') %>
 <script src="/js/demo.js"></script>
@@ -98,7 +109,7 @@
 			optionCreate.style.display = 'none';
 		}
 		demo.innerHTML = `
-        <div class="container z-depth-1" style="padding: 10px 1.5em; position: relative;">
+        <div class="container z-depth-1" style="padding: 10px 1.5em; position: relative; margin: 0;">
             <h4 class="purple-text"> Demo Question </h4>
             <p class="flow-text">${questionText.value}</p>
             ${demos[type]}            

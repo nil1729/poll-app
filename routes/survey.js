@@ -4,6 +4,7 @@ const SurveyItem = require('../models/SurveyItem');
 // const checkAuthentication = require('../middleware/checkAuthentication');
 const checkAuthorization = require('../middleware/checkAuthorization');
 const Survey = require('../models/Survey');
+const { ObjectId } = require('mongodb');
 const smileyRating = [
 	{
 		emoji: '&#128533',
@@ -136,7 +137,7 @@ router.get('/edit/:id/:questionId', checkAuthorization, async (req, res) => {
 });
 
 router.put('/edit/:id/:questionId', checkAuthorization, async (req, res) => {
-	const { QType, QText, option__1, option__2, option__3, option__4 } = req.body;
+	const { QText, option__1, option__2, option__3, option__4 } = req.body;
 	try {
 		const surveyItem = await SurveyItem.findById(req.params.questionId);
 		if (!surveyItem) {
@@ -148,12 +149,39 @@ router.put('/edit/:id/:questionId', checkAuthorization, async (req, res) => {
 			options = [option__1, option__2, option__3, option__4];
 		}
 
-		surveyItem.QType = QType;
 		surveyItem.QText = QText;
 		surveyItem.options = options;
 		await surveyItem.save();
 
 		let survey = await Survey.findById(req.params.id);
+		req.flash('success', 'Question updated Successfully');
+		res.redirect(`/survey/preview/${survey.id}`);
+	} catch (e) {
+		console.log(e);
+		req.flash('error', 'Sorry!! Server Error occurred');
+		res.redirect('back');
+	}
+});
+
+router.put('/edit/:id/:questionId/disable', checkAuthorization, async (req, res) => {
+	try {
+		const surveyItem = await SurveyItem.findById(req.params.questionId);
+		const survey = await Survey.findById(req.params.id);
+
+		if (!surveyItem || !survey) {
+			req.flash('error', 'Not Found the requested Question');
+			res.redirect('/users/dashboard');
+		}
+
+		await SurveyItem.updateOne(
+			{ _id: req.params.questionId },
+			{
+				$set: {
+					disabled: !surveyItem.disabled,
+				},
+			}
+		);
+
 		req.flash('success', 'Question updated Successfully');
 		res.redirect(`/survey/preview/${survey.id}`);
 	} catch (e) {

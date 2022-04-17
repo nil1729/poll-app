@@ -2,7 +2,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const config = require('config');
 
 module.exports = async (passport) => {
 	passport.use(

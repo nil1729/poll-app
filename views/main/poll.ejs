@@ -22,159 +22,179 @@
 		<% } %> <% if (survey.surveyQs.length === 0) { %>
 		<h3 class="center red-text alert-text-poll">No Question added till now !!</h3>
 		<% }else { %> <% survey.surveyQs.forEach(item => { %>
-		<div class="row z-depth-1">
-			<div class="col s12" style="position: relative">
-				<% if(view === 'preview' && user) { %>
-				<a
-					class="btn waves-effect waves-light"
-					href="/survey/edit/<%= survey._id %>/<%= item._id %>"
-					style="position: absolute; right: 7%"
-				>
-					<i class="material-icons">edit</i>
-				</a>
-				<form
-					class="btn-form"
-					action="/survey/delete/<%= survey._id %>/<%= item._id %>?_method=DELETE"
-					method="post"
-				>
-					<button
-						class="btn waves-effect waves-light red"
-						type="submit"
-						style="position: absolute; right: 0"
+		<div>
+			<% if((item.disabled && typeof user !== 'undefined' && survey.user._id.equals(user._id)) ||
+			!item.disabled) { %>
+			<div class="row z-depth-1">
+				<div class="col s12" style="position: relative">
+					<% if(view === 'preview' && typeof user !== 'undefined' &&
+					survey.user._id.equals(user._id)) { %> <% if(item.disabled) { %>
+					<span
+						class="btn-flat grey"
+						href="/survey/edit/<%= survey._id %>/<%= item._id %>"
+						style="position: absolute; right: 15%; pointer-events: none"
 					>
-						<i class="material-icons">delete</i>
-					</button>
-				</form>
-				<% } %>
-				<p class="flow-text col s12 blue-text"><%= item.QText %></p>
-				<% if(item.QType === 'singleSelect') { %>
-				<div class="input-field col s12">
-					<% item.options.forEach( option => { %>
-					<p>
-						<label>
-							<input class="with-gap" name="<%= item._id %>" value="<%= option  %>" type="radio" />
-							<span><%= option %></span>
-						</label>
-					</p>
-					<% }) %>
-				</div>
-				<% } else if (item.QType === 'multipleSelect'){ %>
-				<div class="input-field col s12">
-					<% item.options.forEach( option => { %>
-					<p>
-						<label>
-							<input
-								name="<%= item._id %>$<%= option  %>"
-								type="checkbox"
-								class="filled-in"
-								value="<%= option  %>"
-							/>
-							<span><%= option %></span>
-						</label>
-					</p>
-					<% }) %>
-				</div>
-				<% }else if(item.QType === 'starRating'){ %>
-				<div class="input-field col s12" style="display: flex">
-					<% for(let i=1;i<=5;i++){ %>
-					<p>
-						<label>
-							<input name="<%= item._id %>" value="<%= i  %>" type="radio" />
-							<span class="star-span">
-								<i
-									id="<%= i %>-star"
-									onclick="mark('<%= i %>')"
-									onmouseout="nocolor('<%= i %>')"
-									onmouseover="color('<%= i %>')"
-									class="material-icons unmarked-<%= i %>"
-									style="cursor: pointer"
-									>star</i
-								>
-							</span>
-						</label>
-					</p>
+						disabled
+					</span>
+					<% } %>
+					<a
+						class="btn waves-effect waves-light"
+						href="/survey/edit/<%= survey._id %>/<%= item._id %>"
+						style="position: absolute; right: 7%"
+					>
+						<i class="material-icons">edit</i>
+					</a>
+					<form
+						class="btn-form"
+						action="/survey/delete/<%= survey._id %>/<%= item._id %>?_method=DELETE"
+						method="post"
+					>
+						<button
+							class="btn waves-effect waves-light red"
+							type="submit"
+							style="position: absolute; right: 0"
+						>
+							<i class="material-icons">delete</i>
+						</button>
+					</form>
+					<% } %>
+					<p class="flow-text col s12 blue-text"><%= item.QText %></p>
+					<% if(item.QType === 'singleSelect') { %>
+					<div class="input-field col s12">
+						<% item.options.forEach( option => { %>
+						<p>
+							<label>
+								<input
+									class="with-gap"
+									name="<%= item._id %>"
+									value="<%= option  %>"
+									type="radio"
+								/>
+								<span><%= option %></span>
+							</label>
+						</p>
+						<% }) %>
+					</div>
+					<% } else if (item.QType === 'multipleSelect'){ %>
+					<div class="input-field col s12">
+						<% item.options.forEach( option => { %>
+						<p>
+							<label>
+								<input
+									name="<%= item._id %>$<%= option  %>"
+									type="checkbox"
+									class="filled-in"
+									value="<%= option  %>"
+								/>
+								<span><%= option %></span>
+							</label>
+						</p>
+						<% }) %>
+					</div>
+					<% }else if(item.QType === 'starRating'){ %>
+					<div class="input-field col s12" style="display: flex">
+						<% for(let i=1;i<=5;i++){ %>
+						<p>
+							<label>
+								<input name="<%= item._id %>" value="<%= i  %>" type="radio" />
+								<span class="star-span">
+									<i
+										id="<%= i %>-star"
+										onclick="mark('<%= i %>')"
+										onmouseout="nocolor('<%= i %>')"
+										onmouseover="color('<%= i %>')"
+										class="material-icons unmarked-<%= i %>"
+										style="cursor: pointer"
+										>star</i
+									>
+								</span>
+							</label>
+						</p>
+						<% } %>
+					</div>
+					<% } else if(item.QType === 'smileyRating') { %>
+					<div class="input-field col s12" style="display: flex; width: 100%; min-height: 7em">
+						<% smileyRating.forEach(opt => { %>
+						<div style="display: flex; width: 100%; justify-content: space-evenly">
+							<label>
+								<input name="<%= item._id %>" value="<%= opt.text  %>" type="radio" />
+								<div class="star-span emoji-div">
+									<span
+										class="emoji <%= opt.text %>"
+										id="<%= opt.text %>"
+										onclick="emoji('<%= opt.text %>')"
+									>
+										<%- opt.emoji %> </span
+									><span class="emoji-text" id="<%= opt.text  %>-text"><%= opt.text %></span>
+								</div>
+							</label>
+						</div>
+						<% }) %>
+					</div>
+					<% } else if(item.QType === 'thumbUpDown') { %>
+					<div class="input-field col s12" style="display: flex">
+						<p>
+							<label>
+								<input name="<%= item._id %>" value="like" type="radio" />
+								<span class="star-span">
+									<i id="like" onclick="thumb('like')" class="material-icons large thumb"
+										>thumb_up</i
+									><br /><span class="grey-text">Like it</span>
+								</span>
+							</label>
+						</p>
+						<p>
+							<label>
+								<input name="<%= item._id %>" value="dislike" type="radio" />
+								<span class="star-span">
+									<i id="dislike" onclick="thumb('dislike')" class="material-icons large thumb"
+										>thumb_down</i
+									>
+									<br />
+									<span class="grey-text">Dislike it</span>
+								</span>
+							</label>
+						</p>
+					</div>
+					<% } else if(item.QType === 'slider') { %>
+					<div class="input-field col s12">
+						<span class="grey-text">Min: 0</span>
+						<span class="grey-text" style="margin-left: 10px">Max: 100</span>
+						<p class="range-field">
+							<input name="<%= item._id %>" type="range" id="test5" min="0" max="100" />
+						</p>
+					</div>
+					<% } else if(item.QType === 'comment') { %>
+					<div class="input-field col s12">
+						<i class="material-icons prefix">speaker_notes</i>
+						<textarea name="<%= item._id %>" id="textarea1" class="materialize-textarea"></textarea>
+						<label for="icon_prefix">Comments / Suggestions</label>
+					</div>
+					<% }else{ %>
+					<div class="input-field col s12">
+						<p>
+							<label>
+								<input class="with-gap" name="<%= item._id %>" value="yes" type="radio" />
+								<span>YES</span>
+							</label>
+						</p>
+						<p>
+							<label>
+								<input class="with-gap" name="<%= item._id %>" value="no" type="radio" />
+								<span>NO</span>
+							</label>
+						</p>
+						<p>
+							<label>
+								<input class="with-gap" name="<%= item._id %>" value="notSure" type="radio" />
+								<span>Not Sure</span>
+							</label>
+						</p>
+					</div>
 					<% } %>
 				</div>
-				<% } else if(item.QType === 'smileyRating') { %>
-				<div class="input-field col s12" style="display: flex; width: 100%; min-height: 7em">
-					<% smileyRating.forEach(opt => { %>
-					<div style="display: flex; width: 100%; justify-content: space-evenly">
-						<label>
-							<input name="<%= item._id %>" value="<%= opt.text  %>" type="radio" />
-							<div class="star-span emoji-div">
-								<span
-									class="emoji <%= opt.text %>"
-									id="<%= opt.text %>"
-									onclick="emoji('<%= opt.text %>')"
-								>
-									<%- opt.emoji %> </span
-								><span class="emoji-text" id="<%= opt.text  %>-text"><%= opt.text %></span>
-							</div>
-						</label>
-					</div>
-					<% }) %>
-				</div>
-				<% } else if(item.QType === 'thumbUpDown') { %>
-				<div class="input-field col s12" style="display: flex">
-					<p>
-						<label>
-							<input name="<%= item._id %>" value="like" type="radio" />
-							<span class="star-span">
-								<i id="like" onclick="thumb('like')" class="material-icons large thumb">thumb_up</i
-								><br /><span class="grey-text">Like it</span>
-							</span>
-						</label>
-					</p>
-					<p>
-						<label>
-							<input name="<%= item._id %>" value="dislike" type="radio" />
-							<span class="star-span">
-								<i id="dislike" onclick="thumb('dislike')" class="material-icons large thumb"
-									>thumb_down</i
-								>
-								<br />
-								<span class="grey-text">Dislike it</span>
-							</span>
-						</label>
-					</p>
-				</div>
-				<% } else if(item.QType === 'slider') { %>
-				<div class="input-field col s12">
-					<span class="grey-text">Min: 0</span>
-					<span class="grey-text" style="margin-left: 10px">Max: 100</span>
-					<p class="range-field">
-						<input name="<%= item._id %>" type="range" id="test5" min="0" max="100" />
-					</p>
-				</div>
-				<% } else if(item.QType === 'comment') { %>
-				<div class="input-field col s12">
-					<i class="material-icons prefix">speaker_notes</i>
-					<textarea name="<%= item._id %>" id="textarea1" class="materialize-textarea"></textarea>
-					<label for="icon_prefix">Comments / Suggestions</label>
-				</div>
-				<% }else{ %>
-				<div class="input-field col s12">
-					<p>
-						<label>
-							<input class="with-gap" name="<%= item._id %>" value="yes" type="radio" />
-							<span>YES</span>
-						</label>
-					</p>
-					<p>
-						<label>
-							<input class="with-gap" name="<%= item._id %>" value="no" type="radio" />
-							<span>NO</span>
-						</label>
-					</p>
-					<p>
-						<label>
-							<input class="with-gap" name="<%= item._id %>" value="notSure" type="radio" />
-							<span>Not Sure</span>
-						</label>
-					</p>
-				</div>
-				<% } %>
 			</div>
+			<% } %>
 		</div>
 		<% }) %> <% } %> <% if(view !== 'preview' && (survey.surveyQs.length !== 0)){ %>
 		<div class="row center">
@@ -183,8 +203,9 @@
 				<i class="material-icons right">send</i>
 			</button>
 		</div>
+		<% if(view !== 'preview'){ %>
 	</form>
-	<% }else if (survey.surveyQs.length !== 0) { %>
+	<% } %> <% }else if (survey.surveyQs.length !== 0) { %>
 	<div class="row">
 		<a class="btn waves-effect waves-light deep-orange modal-trigger" href="#share-modal"
 			>Share
