@@ -38,7 +38,6 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 app.use(cors());
-app.enable('trust proxy');
 
 // Session Setup
 app.use(
