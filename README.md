@@ -1,6 +1,6 @@
 # Survey Creator App
 
-- #### This site is live [here](https://poll-node.herokuapp.com/).
+- #### This site is live [here](https://poll-app.nildeb.xyz/).
 - #### Github Repository [link](https://github.com/nil1729/poll-app).
 
 ---
