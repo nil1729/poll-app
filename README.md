@@ -72,15 +72,14 @@
       ```
        >> git clone https://github.com/nil1729/poll-app
       ```
-   1. Create a new file named `default.json` on `config` directory.
-   1. In `default.json` file put all secret Credentials. (In following Format)
+   2. On root directory create file named `.env` & put all secret Credentials. (In following Format)
       ```
-      {
-          "sessionSecret": "<Session Secret for Passport Authentication>",
-          "mongoURI": "<MongoDB Atlas URI or Local MongoDB URI>",
-          "googleClientSecret": "<Google Client Secret>",
-          "googleClientID": "<Google Client ID>",
-      }
+        GOOGLE_CLIENT_ID=
+        GOOGLE_CLIENT_SECRET=
+        MONGO_URI=
+        SESSION_SECRET=
+        PORT=
+        HOST_DOMAIN=
       ```
 
 ---

@@ -1,0 +1,21 @@
+name: Deploy to My Server
+on:
+  push:
+    branches: [master]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploying Poll App to the Production
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd poll-app
+            git pull origin master
+            npm install
+            pm2 restart poll_app
