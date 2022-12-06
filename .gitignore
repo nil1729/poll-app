@@ -2,3 +2,5 @@ node_modules
 default.json
 production.json
 .env
+package-lock.json
+.vscode

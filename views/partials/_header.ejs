@@ -4,14 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Survey Poll App</title>
-    <script
-      src="https://kit.fontawesome.com/57aeb32e6c.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+    <script src="https://kit.fontawesome.com/57aeb32e6c.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -41,7 +35,7 @@
               class="brand-logo center header-title red-text"
               style="
                 letter-spacing: 1px;
-                font-family: 'MuseoModerno', cursive;
+                font-family: 'Merriweather', serif;
                 text-shadow: 0 0 2px rgb(68, 67, 67);
               "
               >Survey Poll App</span
@@ -68,10 +62,7 @@
       <ul id="slide-out" class="sidenav">
         <% if(typeof user === 'undefined') {%>
         <li>
-          <a
-            class="btn waves-effect waves-light red darken-2"
-            href="/auth/google"
-          >
+          <a class="btn waves-effect waves-light red darken-2" href="/auth/google">
             <i class="fab fa-google white-text"></i>
             <span>Login With Google</span>
           </a>
@@ -94,20 +85,12 @@
         <% }else{ %>
         <li class="d-flex-start p-1-2">
           <div class="avatar-stamp">
-            <img
-              src="<%= user.avatar  %>"
-              alt=""
-              class="circle responsive-img"
-            />
+            <img src="<%= user.avatar  %>" alt="" class="circle responsive-img" />
           </div>
-          <p class="center flow-text ml-1">
-            <%= user.firstName %> <%= user.lastName %>
-          </p>
+          <p class="center flow-text ml-1"><%= user.firstName %> <%= user.lastName %></p>
         </li>
         <li>
-          <a href="/users/dashboard"
-            ><i class="fas fa-2x fa-user-cog"></i> Dashboard</a
-          >
+          <a href="/users/dashboard"><i class="fas fa-2x fa-user-cog"></i> Dashboard</a>
         </li>
         <li>
           <a href="/users/survey/<%= user._id  %>"
@@ -116,14 +99,11 @@
         </li>
         <li>
           <a href="/survey/public"
-            ><i class="material-icons left" style="font-size: 2.5em">poll</i
-            >Public Surveys</a
+            ><i class="material-icons left" style="font-size: 2.5em">poll</i>Public Surveys</a
           >
         </li>
         <li>
-          <a href="/auth/logout"
-            ><i class="fas fa-2x fa-sign-out-alt"></i>Logout</a
-          >
+          <a href="/auth/logout"><i class="fas fa-2x fa-sign-out-alt"></i>Logout</a>
         </li>
         <% } %>
       </ul>
