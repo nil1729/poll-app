@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "start:prod": "NODE_ENV=production npm start"
   },
   "keywords": [],
   "author": "",
@@ -28,10 +28,10 @@
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "xss-clean": "^0.1.1"
+    "xss-clean": "^0.1.1",
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0",
     "nodemon": "^2.0.4"
   }
 }

@@ -1,4 +1,7 @@
-require('dotenv').config();
+const path = require('path');
+const configFilePath = path.join('/opt/nil1729/poll-app/backend.env');
+require('dotenv').config({ path: configFilePath });
+
 const express = require('express');
 const app = express();
 const session = require('express-session');
@@ -19,9 +22,9 @@ connectDB();
 
 // Body Parser Setup
 app.use(
-	express.urlencoded({
-		extended: true,
-	})
+  express.urlencoded({
+    extended: true,
+  })
 );
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -33,27 +36,27 @@ app.use(helmet());
 app.use(xss());
 app.use(hpp());
 const limiter = rateLimit({
-	windowMs: 10 * 60 * 1000,
-	max: 500,
+  windowMs: 10 * 60 * 1000,
+  max: 500,
 });
 app.use(limiter);
 app.use(cors());
 
 // Session Setup
 app.use(
-	session({
-		resave: false,
-		secret: process.env.SESSION_SECRET,
-		saveUninitialized: false,
-	})
+  session({
+    resave: false,
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+  })
 );
 
 // Connect Flash
 app.use(flash());
 app.use((req, res, next) => {
-	res.locals.success = req.flash('success');
-	res.locals.error = req.flash('error');
-	next();
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
 });
 
 // Passport Setup
@@ -63,16 +66,16 @@ app.use(passport.session());
 
 // Routes
 app.get('/', (req, res) => {
-	res.render('main/index', {
-		user: req.user,
-	});
+  res.render('main/index', {
+    user: req.user,
+  });
 });
 app.use('/survey', require('./routes/survey'));
 app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/user'));
 
 // PORT listen
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, process.env.IP, () => {
-	console.log(`Server started on port ${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 });
